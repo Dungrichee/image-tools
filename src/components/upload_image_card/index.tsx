@@ -1,12 +1,24 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Box, Button, IconButton, Tooltip, Typography } from '@mui/material';
 import { AiOutlineUpload } from 'react-icons/ai';
 import { FaGoogleDrive } from 'react-icons/fa';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
 function UploadImageCard() {
     const classes = useStyles();
-    
+    const [createObjectURL, setCreateObjectURL] = useState<string | null>(null);
+    const router = useRouter()
+
+    const fileSelectedHandler = (e: React.BaseSyntheticEvent) => {
+        console.log({ target: e.target.files[0] });
+        const file = e.target.files[0];
+        setCreateObjectURL(URL.createObjectURL(file));
+        router.push("resize_image/resize_options")
+        
+    };
+
     return (
         <Box className={classes.root}>
             <Box p={7}>
@@ -22,11 +34,18 @@ function UploadImageCard() {
                         variant="contained"
                         size="large"
                         startIcon={<AiOutlineUpload />}
+                        component="label"
                     >
                         Upload Image
+                        <input
+                            hidden
+                            accept="image/*"
+                            type="file"
+                            onChange={fileSelectedHandler}
+                        />
                     </Button>
                 </Box>
-                <Typography variant='body2'>Or drop image here</Typography>
+                <Typography variant="body2">Or drop image here</Typography>
             </Box>
             <Typography className={classes.otherOptions} variant="body2">
                 Paste image or URL{' '}
@@ -38,6 +57,12 @@ function UploadImageCard() {
                     v
                 </Typography>
             </Typography>
+
+            {createObjectURL && (
+                <Box width="100%" height="100%" position="relative">
+                    <Image src={createObjectURL} layout="fill" alt="" />
+                </Box>
+            )}
         </Box>
     );
 }

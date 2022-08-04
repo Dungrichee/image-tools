@@ -32,7 +32,6 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         flexDirection: 'column',
         flex: 1,
-        padding: 16,
         width: '80%',
     },
 }));

@@ -5,7 +5,7 @@ import { Box } from '@mui/material';
 import UserSidebar from './user_sidebar';
 
 interface UserLayoutProps {
-    children: JSX.Element;
+    children: React.ReactNode;
 }
 
 function UserLayout({ children }: UserLayoutProps) {

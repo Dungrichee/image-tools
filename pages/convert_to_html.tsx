@@ -1,13 +1,18 @@
 import React from 'react';
 
 import UserLayout from 'containers/user_layout';
+import UploadPage from 'containers/upload_page';
 
-function ConvertToHtml() {
+function ConvertToHTML() {
     return (
         <UserLayout>
-            <div>this is convert to html</div>
+            <UploadPage
+                title="Convert image to HTML"
+                description="Convert JPG by defining new height and width pixels.
+Resize many JPG images at once online."
+            />
         </UserLayout>
     );
 }
 
-export default ConvertToHtml;
+export default ConvertToHTML;

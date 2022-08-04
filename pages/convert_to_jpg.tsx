@@ -1,13 +1,18 @@
 import React from 'react';
 
 import UserLayout from 'containers/user_layout';
+import UploadPage from 'containers/upload_page';
 
-function ConvertToJpg() {
+function ConvertToJPG() {
     return (
         <UserLayout>
-            <div>ConvertToJpg</div>
+            <UploadPage
+                title="Convert image to JPG"
+                description="Convert JPG by defining new height and width pixels.
+Resize many JPG images at once online."
+            />
         </UserLayout>
     );
 }
 
-export default ConvertToJpg;
+export default ConvertToJPG;

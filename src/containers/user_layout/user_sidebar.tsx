@@ -105,7 +105,6 @@ export default UserSidebar;
 
 const useStyles = makeStyles(() => ({
     root: {
-        width: '15%',
         background: colorTypes.BG_SIDEBAR,
         display: 'flex',
         flexDirection: 'column',

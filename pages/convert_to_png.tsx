@@ -1,13 +1,18 @@
 import React from 'react';
 
 import UserLayout from 'containers/user_layout';
+import UploadPage from 'containers/upload_page';
 
-function ConvertToPng() {
+function ConvertToPNG() {
     return (
         <UserLayout>
-            <div>ConvertToPng</div>
+            <UploadPage
+                title="Convert image to PNG"
+                description="Convert JPG by defining new height and width pixels.
+Resize many JPG images at once online."
+            />
         </UserLayout>
     );
 }
 
-export default ConvertToPng;
+export default ConvertToPNG;

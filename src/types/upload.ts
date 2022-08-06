@@ -8,8 +8,15 @@ export interface IUploadImageCard {
 }
 
 export interface IImage {
+    id: string;
     src: string;
     name: string;
+    width: number;
+    height: number;
+    size: number;
+}
+
+export interface IImageSize {
     width: number;
     height: number;
 }

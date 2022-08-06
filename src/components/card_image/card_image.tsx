@@ -6,25 +6,47 @@ import { HiArrowNarrowRight } from 'react-icons/hi';
 import { MdDeleteOutline } from 'react-icons/md';
 
 import { IImage } from 'types';
+import { useAppDispatch, useAppSelector } from 'hook';
 import { BOX_SHADOW } from 'constants/styles';
+import { deleteImage } from 'redux_store/local_image/local_image_slice';
 
 interface ICardImageProps {
-    index: number;
     image: IImage;
 }
 
 function CardImage(props: ICardImageProps) {
-    const { index, image } = props;
+    const { image } = props;
+    const { size, images } = useAppSelector(
+        ({ localImageSlice }) => localImageSlice,
+    );
     const classes = useStyles();
+    const dispatch = useAppDispatch();
 
-    const handleClick = () => {
-        console.log('id');
+    const handleClick = (id: string) => {
+        dispatch(deleteImage(id));
+    };
+
+    const formatBytes = (size: number, b = 2) => {
+        if (!size) return '0';
+        const c = 0 > b ? 0 : b,
+            d = Math.floor(Math.log(size) / Math.log(1024));
+        return (
+            parseFloat((size / Math.pow(1024, d)).toFixed(c)) +
+            ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'][d]
+        );
+    };
+
+    const getImageSize = () => {
+        if (!images.length) return '';
+        if (images.length < 2) return `${size.width} x ${size.height}`;
+
+        return `${image.width} x ${image.height}`;
     };
 
     return (
-        <Box key={index} className={classes.card}>
+        <Box className={classes.card}>
             <Box className={classes.btnDelete}>
-                <IconButton onClick={handleClick} size="small">
+                <IconButton onClick={() => handleClick(image.id)} size="small">
                     <MdDeleteOutline size={24} color="red" />
                 </IconButton>
             </Box>
@@ -55,14 +77,14 @@ function CardImage(props: ICardImageProps) {
                     />
                     <HiArrowNarrowRight style={{ margin: '0 8px' }} />
                     <Chip
-                        label={`${image.width} x ${image.height}`}
+                        label={getImageSize()}
                         size="small"
                         color="primary"
                     />
                 </Box>
                 <Box mt={1}>
                     <Chip
-                        label={`${image.width} kb`}
+                        label={formatBytes(image.size)}
                         size="small"
                         color="info"
                         icon={<CgSize />}

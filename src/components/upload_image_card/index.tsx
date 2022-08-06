@@ -1,22 +1,46 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@mui/styles';
 import { Box, Button, IconButton, Tooltip, Typography } from '@mui/material';
 import { AiOutlineUpload } from 'react-icons/ai';
 import { FaGoogleDrive } from 'react-icons/fa';
-import Image from 'next/image';
-import { useRouter } from 'next/router';
+
+import { IImage } from 'types';
+import { useAppDispatch } from 'hook';
+import { uploadImages } from 'redux_store/local_image/local_image_slice';
 
 function UploadImageCard() {
     const classes = useStyles();
-    const [createObjectURL, setCreateObjectURL] = useState<string | null>(null);
-    const router = useRouter()
+    const dispatch = useAppDispatch();
+
+    const getSizeImage = (file: File) => {
+
+        return new Promise<IImage>((resolve, reject) => {
+            const imageObj = new Image();
+            imageObj.src = URL.createObjectURL(file);
+            imageObj.onload = () =>
+                resolve({
+                    src: imageObj.src,
+                    width: imageObj.width,
+                    height: imageObj.height,
+                    name: file.name,
+                });
+            imageObj.onerror = reject;
+        });
+
+    };
 
     const fileSelectedHandler = (e: React.BaseSyntheticEvent) => {
-        console.log({ target: e.target.files[0] });
-        const file = e.target.files[0];
-        setCreateObjectURL(URL.createObjectURL(file));
-        router.push("resize_image/resize_options")
-        
+        const { files } = e.target;
+        if (!files.length) return;
+
+        for (const file of files) {
+            getSizeImage(file).then((response: IImage) => {
+                dispatch(uploadImages(response));
+            }
+            );
+        }
+
+        // router.push("resize_image/resize_options")
     };
 
     return (
@@ -41,6 +65,7 @@ function UploadImageCard() {
                             hidden
                             accept="image/*"
                             type="file"
+                            multiple
                             onChange={fileSelectedHandler}
                         />
                     </Button>
@@ -57,12 +82,6 @@ function UploadImageCard() {
                     v
                 </Typography>
             </Typography>
-
-            {createObjectURL && (
-                <Box width="100%" height="100%" position="relative">
-                    <Image src={createObjectURL} layout="fill" alt="" />
-                </Box>
-            )}
         </Box>
     );
 }

@@ -10,8 +10,8 @@ import ResizeOptions from 'containers/resize_options';
 import ImageMasonry from 'components/image_masonry';
 
 function ResizeImage() {
-    const classes = useStyles();
     const dispatch = useAppDispatch();
+    const classes = useStyles();
     const { images } = useAppSelector(({ localImageSlice }) => localImageSlice);
 
     useEffect(() => {

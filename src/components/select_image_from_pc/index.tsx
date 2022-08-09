@@ -6,11 +6,14 @@ import { v4 as uuidV4 } from 'uuid';
 
 import { IImage } from 'types';
 import { useAppDispatch, useAppSelector } from 'hook';
+import { calculatePercentage } from 'utils/calculate';
 import { uploadImages } from 'redux_store/local_image/local_image_slice';
 
 function SelectImageFromPC() {
     const dispatch = useAppDispatch();
-    const { images } = useAppSelector(({ localImageSlice }) => localImageSlice);
+    const { images, percentage } = useAppSelector(
+        ({ localImageSlice }) => localImageSlice,
+    );
 
     const getSizeImage = (file: File) => {
         return new Promise<IImage>((resolve, reject) => {
@@ -19,11 +22,20 @@ function SelectImageFromPC() {
             imageObj.onload = () =>
                 resolve({
                     id: uuidV4(),
+                    file,
                     src: imageObj.src,
                     width: imageObj.width,
                     height: imageObj.height,
                     name: file.name,
                     size: file.size,
+                    resizedHeight: calculatePercentage(
+                        imageObj.height,
+                        percentage,
+                    ),
+                    resizedWidth: calculatePercentage(
+                        imageObj.width,
+                        percentage,
+                    ),
                 });
             imageObj.onerror = reject;
         });

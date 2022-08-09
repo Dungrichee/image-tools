@@ -1,24 +1,29 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
-import { Box, InputAdornment, TextField, Typography } from '@mui/material';
-import { Controller, useForm } from 'react-hook-form';
+import { Box, InputAdornment, Typography } from '@mui/material';
+import { useForm } from 'react-hook-form';
 
 import { IImageSize } from 'types';
+import { financial } from 'utils/calculate';
 import { useAppDispatch, useAppSelector } from 'hook';
+import { AspectRatioOptions } from 'constants/resize_options';
 import { changeImageSize } from 'redux_store/local_image/local_image_slice';
+import FormTextField from 'components/hook_form/form_text_field';
+import FormAutocomplete from 'components/hook_form/form_autocomplete';
 
 function ByPixels() {
     const classes = useStyles();
-    const { images } = useAppSelector(
+    const { images, size } = useAppSelector(
         ({ localImageSlice }) => localImageSlice,
     );
 
     const dispatch = useAppDispatch();
 
-    const { control, reset } = useForm<IImageSize>({
+    const { control, reset, getValues } = useForm<IImageSize>({
         defaultValues: {
             width: 0,
             height: 0,
+            ratio: AspectRatioOptions[0],
         },
     });
 
@@ -40,8 +45,70 @@ function ByPixels() {
         });
     }, [images, reset, dispatch]);
 
-    const handleOnChange = (name: string, value: string) => {
-        dispatch(changeImageSize({ [name]: Number(value) }));
+    const getAspectRatio = (id: string) => {
+        const option = AspectRatioOptions.find(
+            (option) => option.id === id,
+        )?.id;
+
+        if (!option || option === 'custom')
+            return { ratioWidth: 1, ratioHeight: 1 };
+
+        const [ratioW, ratioH] = option.split(':');
+
+        return { ratioWidth: Number(ratioW), ratioHeight: Number(ratioH) };
+    };
+
+    const handleOnChange = (
+        name: string,
+        value: string | { id: string; name: string },
+    ) => {
+        const ratio = getValues('ratio');
+        if (!ratio?.id) return;
+
+        const { ratioWidth, ratioHeight } = getAspectRatio(ratio.id);
+
+        if (name === 'ratio') {
+            const { width, height } = images[0];
+            if (ratio.id === 'custom') {
+                return dispatch(
+                    changeImageSize({
+                        width,
+                        height,
+                    }),
+                );
+            } else {
+                return dispatch(
+                    changeImageSize({
+                        width,
+                        height: financial((width * ratioHeight) / ratioWidth),
+                    }),
+                );
+            }
+        }
+
+        if (name !== 'custom' && ratio.id === 'custom') {
+            return dispatch(changeImageSize({ [name]: Number(value) }));
+        }
+
+        if (name === 'width') {
+            return dispatch(
+                changeImageSize({
+                    [name]: Number(value),
+                    height: financial(
+                        (Number(value) * ratioHeight) / ratioWidth,
+                    ),
+                }),
+            );
+        } else {
+            return dispatch(
+                changeImageSize({
+                    [name]: Number(value),
+                    width: financial(
+                        (Number(value) * ratioWidth) / ratioHeight,
+                    ),
+                }),
+            );
+        }
     };
 
     return (
@@ -50,65 +117,51 @@ function ByPixels() {
                 Only applies to one image
             </Typography>
             <Box className={classes.formSize}>
+                <Typography>Ratios </Typography>
+                <FormAutocomplete
+                    control={control}
+                    name="ratio"
+                    label="Ratio Options"
+                    options={AspectRatioOptions}
+                    optionLabel="name"
+                    handleOnChange={handleOnChange}
+                    sx={{ width: 240 }}
+                    isDisableClearable
+                    isDisabled={images.length > 1}
+                />
+            </Box>
+            <Box className={classes.formSize}>
                 <Typography>Width </Typography>
-                <Controller
+                <FormTextField
                     control={control}
                     name="width"
-                    render={({ field }) => (
-                        <TextField
-                            {...field}
-                            label="Width"
-                            variant="outlined"
-                            name="width"
-                            size="small"
-                            placeholder="1-3000"
-                            type="number"
-                            onChange={(e) => {
-                                field.onChange(e);
-                                handleOnChange('width', e.target.value);
-                            }}
-                            disabled={!images.length || images.length > 1}
-                            InputProps={{
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        px
-                                    </InputAdornment>
-                                ),
-                            }}
-                        />
-                    )}
-                    rules={{ min: 1, max: 3000 }}
+                    label="Width"
+                    type="number"
+                    value={size.width}
+                    handleOnChange={handleOnChange}
+                    inputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">px</InputAdornment>
+                        ),
+                    }}
+                    isDisabled={images.length > 1}
                 />
             </Box>
             <Box className={classes.formSize}>
                 <Typography>Height </Typography>
-                <Controller
-                    control={control}
+                <FormTextField
                     name="height"
-                    render={({ field }) => (
-                        <TextField
-                            {...field}
-                            label="Height"
-                            variant="outlined"
-                            name="height"
-                            size="small"
-                            placeholder="1-3000"
-                            type="number"
-                            onChange={(e) => {
-                                field.onChange(e);
-                                handleOnChange('height', e.target.value);
-                            }}
-                            disabled={!images.length || images.length > 1}
-                            InputProps={{
-                                endAdornment: (
-                                    <InputAdornment position="end">
-                                        px
-                                    </InputAdornment>
-                                ),
-                            }}
-                        />
-                    )}
-                    rules={{ min: 1, max: 3000 }}
+                    label="Height"
+                    control={control}
+                    value={size.height}
+                    handleOnChange={handleOnChange}
+                    type="number"
+                    inputProps={{
+                        endAdornment: (
+                            <InputAdornment position="end">px</InputAdornment>
+                        ),
+                    }}
+                    isDisabled={images.length > 1}
                 />
             </Box>
         </Box>

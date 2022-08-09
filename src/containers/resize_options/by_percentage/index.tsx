@@ -40,6 +40,7 @@ function ByPercentage() {
                     sx={{
                         width: '100%',
                     }}
+                    value={percentage}
                     onChange={handlePercentageChange}
                 >
                     <FormControlLabel

@@ -16,7 +16,7 @@ interface ICardImageProps {
 
 function CardImage(props: ICardImageProps) {
     const { image } = props;
-    const { size, images } = useAppSelector(
+    const { size, tab, images } = useAppSelector(
         ({ localImageSlice }) => localImageSlice,
     );
     const classes = useStyles();
@@ -38,9 +38,9 @@ function CardImage(props: ICardImageProps) {
 
     const getImageSize = () => {
         if (!images.length) return '';
-        if (images.length < 2) return `${size.width} x ${size.height}`;
+        if (images.length < 2 && !tab) return `${size.width} x ${size.height}`;
 
-        return `${image.width} x ${image.height}`;
+        return `${image.resizedWidth} x ${image.resizedHeight}`;
     };
 
     return (
@@ -75,12 +75,16 @@ function CardImage(props: ICardImageProps) {
                         label={`${image.width} x ${image.height}`}
                         size="small"
                     />
-                    <HiArrowNarrowRight style={{ margin: '0 8px' }} />
-                    <Chip
-                        label={getImageSize()}
-                        size="small"
-                        color="primary"
-                    />
+                    {images.length > 1 && tab === 0 ? null : (
+                        <React.Fragment>
+                            <HiArrowNarrowRight style={{ margin: '0 8px' }} />
+                            <Chip
+                                label={getImageSize()}
+                                size="small"
+                                color="primary"
+                            />
+                        </React.Fragment>
+                    )}
                 </Box>
                 <Box mt={1}>
                     <Chip
@@ -104,7 +108,9 @@ const useStyles = makeStyles(() => ({
     },
     cardLabel: {
         textAlign: 'center',
-        padding: 4,
+        padding: 8,
+        textOverflow: 'ellipsis',
+        overflow: 'hidden'
     },
     btnDelete: {
         position: 'absolute',

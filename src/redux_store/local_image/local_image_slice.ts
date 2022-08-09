@@ -1,5 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { IImage, IImageSize } from 'types';
+import { calculatePercentage } from 'utils/calculate';
+import { AspectRatioOptions } from 'constants/resize_options';
 
 interface ILocalImageSlice {
     images: IImage[];
@@ -14,6 +17,7 @@ const initialState: ILocalImageSlice = {
     size: {
         width: 0,
         height: 0,
+        ratio: AspectRatioOptions[0],
     },
     tab: 0,
 };
@@ -36,12 +40,31 @@ const localImageSlice = createSlice({
         changeImageSize: (state, action) => {
             state.size = { ...state.size, ...action.payload };
         },
+        changeTab: (state, action) => {
+            state.tab = action.payload;
+        },
         changeImagePercentage: (state, action) => {
-            state.percentage = action.payload
-        }
+            state.percentage = action.payload;
+            state.images = state.images.map((image) => ({
+                ...image,
+                resizedWidth: calculatePercentage(image.width, action.payload),
+                resizedHeight: calculatePercentage(
+                    image.height,
+                    action.payload,
+                ),
+            }));
+        },
     },
 });
 
 const { reducer, actions } = localImageSlice;
-export const { uploadImages, deleteImage, resetImages, changeImageSize, changeImagePercentage } = actions;
+
+export const {
+    uploadImages,
+    deleteImage,
+    resetImages,
+    changeTab,
+    changeImageSize,
+    changeImagePercentage,
+} = actions;
 export default reducer;

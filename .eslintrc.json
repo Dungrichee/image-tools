@@ -28,7 +28,8 @@
           "{}": false
         }
       }
-    ]
+    ],
+    "@typescript-eslint/no-inferrable-types": "off"
   },
   "settings": {
     "import/resolver": {

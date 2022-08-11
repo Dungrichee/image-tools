@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Box, Button, IconButton, Tooltip, Typography } from '@mui/material';
 import { FaGoogleDrive } from 'react-icons/fa';
@@ -19,6 +19,10 @@ function CropImage() {
     const dispatch = useAppDispatch();
     const [cropper, setCropper] = useState<Cropper>();
     const { images } = useAppSelector(({ localImageSlice }) => localImageSlice);
+
+    useEffect(() => {
+        dispatch(resetImages())
+    }, [dispatch]);
 
     const getCropData = () => {
         if (typeof cropper === 'undefined') return '';

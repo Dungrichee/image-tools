@@ -16,6 +16,6 @@
     "jsx": "preserve",
     "incremental": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/utils/routers.js"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/utils/routers.js", "pages/watermark_image.jsx"],
   "exclude": ["node_modules"]
 }

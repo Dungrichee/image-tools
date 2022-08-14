@@ -37,6 +37,7 @@ function SelectImageFromPC() {
                         percentage,
                     ),
                 });
+
             imageObj.onerror = reject;
         });
     };

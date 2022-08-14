@@ -33,6 +33,7 @@ interface IResizeImage {
     height: number;
     index?: number;
     length?: number;
+    isRemoveBg?: boolean;
 }
 
 export const resizeImages = (
@@ -43,8 +44,9 @@ export const resizeImages = (
             fileName: string;
         }[],
     ) => void,
+    removeBg?: (imgBase64: string) => void
 ) => {
-    const { image, width, height, index, length } = props;
+    const { image, width, height, index, length, isRemoveBg = false } = props;
     const { file } = image;
     const newImages: { url: string; fileName: string }[] = [];
     const reader = new FileReader();
@@ -72,6 +74,8 @@ export const resizeImages = (
 
             const fileName: string = `${width} x ${height} - ${file.name}`;
             let newImageUrl = canvas.toDataURL('image/jpeg', 100);
+            
+            if (isRemoveBg && removeBg) return removeBg(newImageUrl);
 
             if (!length) return saveAs(newImageUrl, fileName);
 

@@ -15,7 +15,7 @@ function ResizeImage() {
     const { images } = useAppSelector(({ localImageSlice }) => localImageSlice);
 
     useEffect(() => {
-        return () => dispatch(resetImages());
+        dispatch(resetImages());
     }, [dispatch]);
 
     return (

@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from 'hook';
 import { resetImages } from 'redux_store/local_image/local_image_slice';
 import UserLayout from 'containers/user_layout';
 import UploadPage from 'containers/upload_page';
-import CropOptions from 'containers/copy_options';
+import CropOptions from 'containers/crop_options';
 import SelectImageFromPC from 'components/select_image_from_pc';
 import 'cropperjs/dist/cropper.css';
 

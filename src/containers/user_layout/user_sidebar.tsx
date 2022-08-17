@@ -47,12 +47,14 @@ function UserSidebar() {
                                     )}
                                 </ListItemButton>
                             ) : (
-                                <ListItemButton>
-                                    <ListItemIcon>{route?.icon}</ListItemIcon>
-                                    <Link href={`${route.url}`}>
+                                <Link href={`${route.url}`}>
+                                    <ListItemButton>
+                                        <ListItemIcon>
+                                            {route?.icon}
+                                        </ListItemIcon>
                                         <ListItemText primary={route?.title} />
-                                    </Link>
-                                </ListItemButton>
+                                    </ListItemButton>
+                                </Link>
                             )}
                             {route?.subMenu?.map((menu, index) => (
                                 <Collapse
@@ -62,16 +64,16 @@ function UserSidebar() {
                                     key={index}
                                 >
                                     <List component="div" disablePadding>
-                                        <ListItemButton sx={{ pl: 4 }}>
-                                            <ListItemIcon>
-                                                {menu?.icon}
-                                            </ListItemIcon>
-                                            <Link href={`${menu.url}`}>
+                                        <Link href={`${menu.url}`}>
+                                            <ListItemButton sx={{ pl: 4 }}>
+                                                <ListItemIcon>
+                                                    {menu?.icon}
+                                                </ListItemIcon>
                                                 <ListItemText
                                                     primary={menu?.title}
                                                 />
-                                            </Link>
-                                        </ListItemButton>
+                                            </ListItemButton>
+                                        </Link>
                                     </List>
                                 </Collapse>
                             ))}

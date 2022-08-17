@@ -4,7 +4,8 @@ export interface IFunctionInfo {
 }
 
 export interface IUploadImageCard {
-    type?: string;
+    type?: 'resize' | 'crop' | 'remove_bg' | 'watermark';
+    isMultiple?: boolean
 }
 
 export interface IImage {

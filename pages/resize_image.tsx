@@ -3,7 +3,7 @@ import { Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 
 import { useAppDispatch, useAppSelector } from 'hook';
-import { resetImages } from 'redux_store/local_image/local_image_slice';
+import { resetImages } from 'redux_store/image_storage/image_slice';
 import UserLayout from 'containers/user_layout';
 import UploadPage from 'containers/upload_page';
 import ResizeOptions from 'containers/resize_options';
@@ -12,7 +12,7 @@ import ImageMasonry from 'components/image_masonry';
 function ResizeImage() {
     const dispatch = useAppDispatch();
     const classes = useStyles();
-    const { images } = useAppSelector(({ localImageSlice }) => localImageSlice);
+    const { images } = useAppSelector(({ imageSlice }) => imageSlice);
 
     useEffect(() => {
         dispatch(resetImages());
@@ -25,11 +25,13 @@ function ResizeImage() {
                     title="Resize Image"
                     description="Resize JPG by defining new height and width pixels.
 Resize many JPG images at once online."
+                    type="resize"
+                    isMultiple
                 />
             ) : (
                 <Box className={classes.page}>
                     <Box className={classes.content}>
-                        <ImageMasonry title='Resize images' />
+                        <ImageMasonry title="Resize images" />
                     </Box>
                     <ResizeOptions />
                 </Box>

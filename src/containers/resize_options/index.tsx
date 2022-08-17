@@ -9,7 +9,7 @@ import { LoadingButton } from '@mui/lab';
 
 import { IImage } from 'types';
 import { useAppDispatch, useAppSelector } from 'hook';
-import { changeTab } from 'redux_store/local_image/local_image_slice';
+import { changeTab } from 'redux_store/resize/resize_slice';
 import { downloadZipImageFolder, resizeImages } from 'utils/resize';
 import ByPercentage from './by_percentage';
 import ByPixels from './by_pixels';
@@ -19,9 +19,8 @@ function ResizeOptions() {
     const classes = useStyles();
     const dispatch = useAppDispatch();
 
-    const { images, size, tab } = useAppSelector(
-        ({ localImageSlice }) => localImageSlice,
-    );
+    const { images } = useAppSelector(({ imageSlice }) => imageSlice);
+    const { size, tab } = useAppSelector(({ resizeSlice }) => resizeSlice);
 
     const handleChange = (event: React.SyntheticEvent, value: number) => {
         dispatch(changeTab(value));

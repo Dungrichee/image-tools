@@ -3,18 +3,18 @@ import { makeStyles } from '@mui/styles';
 import { Box, Divider, Typography } from '@mui/material';
 import { FiCrop } from 'react-icons/fi';
 import { LoadingButton } from '@mui/lab';
-import { saveAs } from 'file-saver';
 
 import { useAppSelector } from 'hook';
 import Guide from './guide';
 
-function CropOptions({ getCropData }: { getCropData: () => string }) {
+function RemoveBgOptions() {
     const classes = useStyles();
 
     const { images } = useAppSelector(({ imageSlice }) => imageSlice);
+    const { tab } = useAppSelector(({ resizeSlice }) => resizeSlice);
 
     const onSubmit = () => {
-        saveAs(getCropData(), images[0].name);
+        console.log('on submit');
     };
 
     return (
@@ -32,16 +32,16 @@ function CropOptions({ getCropData }: { getCropData: () => string }) {
                     variant="contained"
                     size="large"
                     onClick={onSubmit}
-                    disabled={!images.length}
+                    disabled={images.length > 1 && tab === 0}
                 >
-                    Crop image
+                    Download
                 </LoadingButton>
             </Box>
         </Box>
     );
 }
 
-export default CropOptions;
+export default RemoveBgOptions;
 
 const useStyles = makeStyles(() => ({
     options: {

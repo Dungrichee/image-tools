@@ -7,15 +7,14 @@ import { IImageSize } from 'types';
 import { financial } from 'utils/calculate';
 import { useAppDispatch, useAppSelector } from 'hook';
 import { AspectRatioOptions } from 'constants/resize_options';
-import { changeImageSize } from 'redux_store/local_image/local_image_slice';
+import { changeImageSize } from 'redux_store/resize/resize_slice';
 import FormTextField from 'components/hook_form/form_text_field';
 import FormAutocomplete from 'components/hook_form/form_autocomplete';
 
 function ByPixels() {
     const classes = useStyles();
-    const { images, size } = useAppSelector(
-        ({ localImageSlice }) => localImageSlice,
-    );
+    const { images } = useAppSelector(({ imageSlice }) => imageSlice);
+    const { size } = useAppSelector(({ resizeSlice }) => resizeSlice);
 
     const dispatch = useAppDispatch();
 

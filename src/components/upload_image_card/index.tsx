@@ -4,8 +4,10 @@ import { Box, IconButton, Tooltip, Typography } from '@mui/material';
 import { FaGoogleDrive } from 'react-icons/fa';
 
 import SelectImageFromPC from 'components/select_image_from_pc';
+import { IUploadImageCard } from 'types';
 
-function UploadImageCard() {
+function UploadImageCard(props: IUploadImageCard) {
+    const { type, isMultiple } = props;
     const classes = useStyles();
 
     return (
@@ -18,7 +20,7 @@ function UploadImageCard() {
                         </IconButton>
                     </Tooltip>
                 </Box>
-                <SelectImageFromPC />
+                <SelectImageFromPC type={type} isMultiple={isMultiple} />
                 <Typography variant="body2">Or drop image here</Typography>
             </Box>
             <Typography className={classes.otherOptions} variant="body2">

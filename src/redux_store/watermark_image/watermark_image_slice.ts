@@ -7,7 +7,7 @@ interface IWatermarkImageSlice {
 
 const initialState: IWatermarkImageSlice = {
     watermarkName: 'Image tools',
-    preview: false,
+    preview: true,
 };
 
 const watermarkImageSlice = createSlice({
@@ -21,10 +21,14 @@ const watermarkImageSlice = createSlice({
         previewImage: (state) => {
             state.preview = true;
         },
+        resetSlice: (state) => {
+            state.watermarkName = 'Image tools';
+            state.preview = true;
+        },
     },
 });
 
 const { reducer, actions } = watermarkImageSlice;
 
-export const { changeWatermarkName, previewImage } = actions;
+export const { changeWatermarkName, previewImage, resetSlice } = actions;
 export default reducer;

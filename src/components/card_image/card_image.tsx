@@ -8,7 +8,7 @@ import { MdDeleteOutline } from 'react-icons/md';
 import { IImage } from 'types';
 import { useAppDispatch, useAppSelector } from 'hook';
 import { BOX_SHADOW } from 'constants/styles';
-import { deleteImage } from 'redux_store/local_image/local_image_slice';
+import { deleteImage } from 'redux_store/image_storage/image_slice';
 
 interface ICardImageProps {
     image: IImage;
@@ -16,9 +16,8 @@ interface ICardImageProps {
 
 function CardImage(props: ICardImageProps) {
     const { image } = props;
-    const { size, tab, images } = useAppSelector(
-        ({ localImageSlice }) => localImageSlice,
-    );
+    const { images } = useAppSelector(({ imageSlice }) => imageSlice);
+    const { size, tab } = useAppSelector(({ resizeSlice }) => resizeSlice);
     const classes = useStyles();
     const dispatch = useAppDispatch();
 
@@ -110,7 +109,7 @@ const useStyles = makeStyles(() => ({
         textAlign: 'center',
         padding: 8,
         textOverflow: 'ellipsis',
-        overflow: 'hidden'
+        overflow: 'hidden',
     },
     btnDelete: {
         position: 'absolute',

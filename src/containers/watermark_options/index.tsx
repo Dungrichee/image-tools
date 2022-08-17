@@ -1,39 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@mui/styles';
-import { Box, Button, Divider, Tab, Tabs, Typography } from '@mui/material';
+import { Box, Divider, Tab, Tabs, Typography } from '@mui/material';
 import { BsInfoCircle } from 'react-icons/bs';
 import { RiPixelfedLine } from 'react-icons/ri';
 import { SiConvertio } from 'react-icons/si';
 import { LoadingButton } from '@mui/lab';
 
-import Guide from './guide';
+import { useAppSelector } from 'hook';
 import WatermarkSettings from './watermark_settings';
-import { useAppDispatch, useAppSelector } from 'hook';
-import { changeTab } from 'redux_store/local_image/local_image_slice';
-import { previewImage } from 'redux_store/watermark_image/watermark_image_slice';
+import Guide from './guide';
 
 function WatermarkOptions() {
     const classes = useStyles();
-    const dispatch = useAppDispatch();
+    const [tab, setTab] = useState(0);
 
-    const { images, tab } = useAppSelector(
-        ({ localImageSlice }) => localImageSlice,
-    );
-
-    const { preview } = useAppSelector(
-        ({ watermarkImageSlice }) => watermarkImageSlice,
-    );
+    const { images } = useAppSelector(({ imageSlice }) => imageSlice);
 
     const handleChange = (event: React.SyntheticEvent, value: number) => {
-        dispatch(changeTab(value));
+        setTab(value);
     };
 
     const onSubmit = () => {
         console.log('on submit');
-    };
-
-    const onPreview = () => {
-        dispatch(previewImage());
     };
 
     return (
@@ -66,16 +54,6 @@ function WatermarkOptions() {
                 {tab === 1 && <Guide />}
             </Box>
             <Box textAlign="center">
-                <Button
-                    variant="contained"
-                    size="large"
-                    style={{ marginRight: 8 }}
-                    color="inherit"
-                    onClick={onPreview}
-                    disabled={preview}
-                >
-                    Preview
-                </Button>
                 <LoadingButton
                     endIcon={<SiConvertio />}
                     variant="contained"

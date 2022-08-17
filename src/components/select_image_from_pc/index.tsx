@@ -4,16 +4,16 @@ import { AiOutlineUpload } from 'react-icons/ai';
 import { BsLaptop } from 'react-icons/bs';
 import { v4 as uuidV4 } from 'uuid';
 
-import { IImage } from 'types';
+import { IImage, IUploadImageCard } from 'types';
 import { useAppDispatch, useAppSelector } from 'hook';
 import { calculatePercentage } from 'utils/calculate';
-import { uploadImages } from 'redux_store/local_image/local_image_slice';
+import { uploadImages } from 'redux_store/image_storage/image_slice';
 
-function SelectImageFromPC() {
+function SelectImageFromPC(props: IUploadImageCard) {
+    const { type, isMultiple } = props;
     const dispatch = useAppDispatch();
-    const { images, percentage } = useAppSelector(
-        ({ localImageSlice }) => localImageSlice,
-    );
+    const { images } = useAppSelector(({ imageSlice }) => imageSlice);
+    const { percentage } = useAppSelector(({ resizeSlice }) => resizeSlice);
 
     const getSizeImage = (file: File) => {
         return new Promise<IImage>((resolve, reject) => {
@@ -42,13 +42,18 @@ function SelectImageFromPC() {
         });
     };
 
+    const addImageToSlice = (image: IImage) => {
+        if (!type) return;
+        dispatch(uploadImages(image));
+    };
+
     const fileSelectedHandler = (e: React.BaseSyntheticEvent) => {
         const { files } = e.target;
         if (!files.length) return;
 
         for (const file of files) {
             getSizeImage(file).then((response: IImage) => {
-                dispatch(uploadImages(response));
+                addImageToSlice(response);
             });
         }
     };
@@ -82,7 +87,7 @@ function SelectImageFromPC() {
                     hidden
                     accept="image/*"
                     type="file"
-                    multiple
+                    multiple={isMultiple}
                     onChange={fileSelectedHandler}
                 />
             </Button>

@@ -11,19 +11,19 @@ import {
 import { makeStyles } from '@mui/styles';
 
 import { useAppDispatch, useAppSelector } from 'hook';
-import { changeImagePercentage } from 'redux_store/local_image/local_image_slice';
+import { changeImagePercentageOption } from 'redux_store/resize/resize_slice';
+import { changeImagePercentage } from 'redux_store/image_storage/image_slice';
 
 function ByPercentage() {
     const classes = useStyles();
     const dispatch = useAppDispatch();
-    const { percentage } = useAppSelector(
-        ({ localImageSlice }) => localImageSlice,
-    );
+    const { percentage } = useAppSelector(({ resizeSlice }) => resizeSlice);
 
     const handlePercentageChange = (
         event: React.ChangeEvent<HTMLInputElement>,
         value: string,
     ) => {
+        dispatch(changeImagePercentageOption(Number(value)));
         dispatch(changeImagePercentage(Number(value)));
     };
 

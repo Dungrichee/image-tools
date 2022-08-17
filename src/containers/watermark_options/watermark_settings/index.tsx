@@ -12,7 +12,7 @@ function WatermarkSettings() {
     const classes = useStyles();
     const dispatch = useAppDispatch();
     const delayTimeout = useDelayTimeout();
-    const { images } = useAppSelector(({ localImageSlice }) => localImageSlice);
+    const { images } = useAppSelector(({ imageSlice }) => imageSlice);
     const { watermarkName } = useAppSelector(
         ({ watermarkImageSlice }) => watermarkImageSlice,
     );

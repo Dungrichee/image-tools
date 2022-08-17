@@ -1,16 +1,20 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
-import { Box, Button, Typography } from '@mui/material';
+import { Box } from '@mui/material';
 import { useAppDispatch, useAppSelector } from 'hook';
 import Scrollbars from 'react-custom-scrollbars-2';
-import { IoIosArrowBack } from 'react-icons/io';
 import ReactWaterMark from 'react-watermark-component';
 
 import UploadPage from 'containers/upload_page';
 import UserLayout from 'containers/user_layout';
 import WatermarkOptions from 'containers/watermark_options';
-import { resetImages } from 'redux_store/local_image/local_image_slice';
-import { changeWatermarkName } from 'redux_store/watermark_image/watermark_image_slice';
+import {
+    previewImage,
+    resetSlice,
+} from 'redux_store/watermark_image/watermark_image_slice';
+import ImageBlur from 'components/image_blur';
+import DeleteImageButton from 'components/delete_image_button';
+import { resetImages } from 'redux_store/image_storage/image_slice';
 
 const options = {
     chunkWidth: 200,
@@ -25,7 +29,7 @@ const options = {
 };
 
 function WatermarkImageCpn({ watermarkName }) {
-    const { images } = useAppSelector(({ localImageSlice }) => localImageSlice);
+    const { images } = useAppSelector(({ imageSlice }) => imageSlice);
     return (
         <ReactWaterMark
             waterMarkText={watermarkName}
@@ -38,6 +42,10 @@ function WatermarkImageCpn({ watermarkName }) {
                 loading="lazy"
                 width="100%"
                 height="100%"
+                style={{
+                    borderRadius: 4,
+                    display: 'blocks',
+                }}
             />
         </ReactWaterMark>
     );
@@ -46,19 +54,15 @@ function WatermarkImageCpn({ watermarkName }) {
 function WatermarkImage() {
     const classes = useStyles();
     const dispatch = useAppDispatch();
-    const { images } = useAppSelector(({ localImageSlice }) => localImageSlice);
     const { watermarkName, preview } = useAppSelector(
         ({ watermarkImageSlice }) => watermarkImageSlice,
     );
+    const { images } = useAppSelector(({ imageSlice }) => imageSlice);
 
     useEffect(() => {
         dispatch(resetImages());
+        dispatch(resetSlice());
     }, [dispatch]);
-
-    const handleBack = () => {
-        dispatch(resetImages());
-        dispatch(changeWatermarkName('Image tools'));
-    };
 
     return (
         <UserLayout>
@@ -67,43 +71,25 @@ function WatermarkImage() {
                     title="Watermark Image"
                     description="Resize JPG by defining new height and width pixels.
 Resize many JPG images at once online."
+                    type="watermark"
                 />
             ) : (
                 <Box className={classes.page}>
                     <Box className={classes.content}>
                         <Scrollbars>
                             <Box className={classes.cropImage}>
-                                <Box mt={2}>
-                                    <Typography variant="h4" textAlign="center">
-                                        Watermark Image
-                                    </Typography>
-                                </Box>
-                                <Box textAlign="center" my={1}>
-                                    <Button
-                                        variant="contained"
-                                        size="small"
-                                        onClick={handleBack}
-                                        startIcon={<IoIosArrowBack />}
-                                    >
-                                        Back
-                                    </Button>
+                                <Box textAlign="center" my={2}>
+                                    <DeleteImageButton
+                                        callback={() => dispatch(resetSlice())}
+                                    />
                                 </Box>
 
                                 {!preview ? (
-                                    <Box
-                                        width="50%"
-                                        position="relative"
-                                        margin="0 auto"
-                                    >
-                                        <img
-                                            src={images[0].src}
-                                            alt={images[0].name}
-                                            loading="lazy"
-                                            width="100%"
-                                            height="100%"
-                                            style={{ opacity: 0.5 }}
-                                        />
-                                    </Box>
+                                    <ImageBlur
+                                        name={images[0].name}
+                                        src={images[0].src}
+                                        onPreviewImage={previewImage}
+                                    />
                                 ) : (
                                     <Box
                                         width="50%"

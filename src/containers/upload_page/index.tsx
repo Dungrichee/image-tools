@@ -8,11 +8,11 @@ import { IUploadPage } from 'types';
 
 function UploadPage(props: IUploadPage) {
     const classes = useStyles();
-    const { title, description } = props;
+    const { title, description, type, isMultiple } = props;
     return (
         <Box className={classes.section}>
             <FunctionInfo title={title} description={description} />
-            <UploadImageCard />
+            <UploadImageCard type={type} isMultiple={isMultiple} />
         </Box>
     );
 }

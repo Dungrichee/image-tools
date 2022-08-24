@@ -6,15 +6,17 @@ import { LoadingButton } from '@mui/lab';
 import { saveAs } from 'file-saver';
 
 import { useAppSelector } from 'hook';
+import { useDelayLoading } from 'hook/use_delay_loading';
+import Loading from 'components/loading';
 import Guide from './guide';
 
 function CropOptions({ getCropData }: { getCropData: () => string }) {
     const classes = useStyles();
-
+    const { loading, onDelayLoading } = useDelayLoading();
     const { images } = useAppSelector(({ imageSlice }) => imageSlice);
 
     const onSubmit = () => {
-        saveAs(getCropData(), images[0].name);
+        onDelayLoading(() => saveAs(getCropData(), images[0].name));
     };
 
     return (
@@ -28,11 +30,11 @@ function CropOptions({ getCropData }: { getCropData: () => string }) {
             </Box>
             <Box textAlign="center">
                 <LoadingButton
-                    endIcon={<FiCrop />}
+                    endIcon={loading ? <Loading size={22} color="#3f50b5" /> : <FiCrop />}
                     variant="contained"
                     size="large"
                     onClick={onSubmit}
-                    disabled={!images.length}
+                    disabled={loading}
                 >
                     Crop image
                 </LoadingButton>

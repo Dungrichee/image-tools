@@ -1,67 +1,30 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/material';
-import { useAppDispatch, useAppSelector } from 'hook';
 import Scrollbars from 'react-custom-scrollbars-2';
-import ReactWaterMark from 'react-watermark-component';
+import { Watermark } from '@hirohe/react-watermark';
 
+import { useAppDispatch, useAppSelector } from 'hook';
 import UploadPage from 'containers/upload_page';
 import UserLayout from 'containers/user_layout';
 import WatermarkOptions from 'containers/watermark_options';
-import {
-    previewImage,
-    resetSlice,
-} from 'redux_store/watermark_image/watermark_image_slice';
-import ImageBlur from 'components/image_blur';
-import DeleteImageButton from 'components/delete_image_button';
+import { resetSlice } from 'redux_store/watermark_image/watermark_image_slice';
 import { resetImages } from 'redux_store/image_storage/image_slice';
-
-const options = {
-    chunkWidth: 200,
-    chunkHeight: 60,
-    textAlign: 'left',
-    textBaseline: 'bottom',
-    globalAlpha: 0.17,
-    font: '16px Microsoft Yahei',
-    rotateAngle: -0.26,
-    fillStyle: 'white',
-    color: 'white',
-};
-
-function WatermarkImageCpn({ watermarkName }) {
-    const { images } = useAppSelector(({ imageSlice }) => imageSlice);
-    return (
-        <ReactWaterMark
-            waterMarkText={watermarkName}
-            openSecurityDefense
-            options={options}
-        >
-            <img
-                src={images[0].src}
-                alt={images[0].name}
-                loading="lazy"
-                width="100%"
-                height="100%"
-                style={{
-                    borderRadius: 4,
-                    display: 'blocks',
-                }}
-            />
-        </ReactWaterMark>
-    );
-}
+import DeleteImageButton from 'components/delete_image_button';
 
 function WatermarkImage() {
     const classes = useStyles();
     const dispatch = useAppDispatch();
-    const { watermarkName, preview } = useAppSelector(
+    const { watermark } = useAppSelector(
         ({ watermarkImageSlice }) => watermarkImageSlice,
     );
     const { images } = useAppSelector(({ imageSlice }) => imageSlice);
 
     useEffect(() => {
-        dispatch(resetImages());
-        dispatch(resetSlice());
+        return () => {
+            dispatch(resetImages());
+            dispatch(resetSlice());
+        };
     }, [dispatch]);
 
     return (
@@ -77,31 +40,45 @@ Resize many JPG images at once online."
                 <Box className={classes.page}>
                     <Box className={classes.content}>
                         <Scrollbars>
-                            <Box className={classes.cropImage}>
+                            <Box className={classes.watermark}>
                                 <Box textAlign="center" my={2}>
                                     <DeleteImageButton
                                         callback={() => dispatch(resetSlice())}
                                     />
                                 </Box>
 
-                                {!preview ? (
-                                    <ImageBlur
-                                        name={images[0].name}
-                                        src={images[0].src}
-                                        onPreviewImage={previewImage}
-                                    />
-                                ) : (
-                                    <Box
-                                        width="50%"
-                                        height="50%"
-                                        position="relative"
-                                        margin="0 auto"
+                                <Box
+                                    width="50%"
+                                    position="relative"
+                                    margin="0 auto"
+                                    id="wrapperImage"
+                                >
+                                    <Watermark
+                                        fontFamily={watermark.fontFamily}
+                                        gutter={11}
+                                        lineHeight="1.2rem"
+                                        multiline
+                                        opacity={watermark.opacity}
+                                        rotate={watermark.rotate}
+                                        show
+                                        text={watermark.text}
+                                        textColor={watermark.textColor}
+                                        textSize={watermark.textSize}
+                                        wrapperElement="div"
                                     >
-                                        <WatermarkImageCpn
-                                            watermarkName={watermarkName}
+                                        <img
+                                            src={images[0].src}
+                                            alt={images[0].name}
+                                            loading="lazy"
+                                            width="100%"
+                                            height="100%"
+                                            style={{
+                                                borderRadius: 4,
+                                                display: 'block',
+                                            }}
                                         />
-                                    </Box>
-                                )}
+                                    </Watermark>
+                                </Box>
                             </Box>
                         </Scrollbars>
                     </Box>
@@ -125,7 +102,7 @@ const useStyles = makeStyles(() => ({
         flexWrap: 'wrap',
         position: 'relative',
     },
-    cropImage: {
+    watermark: {
         height: '100%',
         overflow: 'hidden',
     },

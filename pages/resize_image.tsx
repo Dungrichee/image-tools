@@ -15,7 +15,9 @@ function ResizeImage() {
     const { images } = useAppSelector(({ imageSlice }) => imageSlice);
 
     useEffect(() => {
-        dispatch(resetImages());
+        return () => {
+            dispatch(resetImages());
+        };
     }, [dispatch]);
 
     return (
@@ -25,7 +27,6 @@ function ResizeImage() {
                     title="Resize Image"
                     description="Resize JPG by defining new height and width pixels.
 Resize many JPG images at once online."
-                    type="resize"
                     isMultiple
                 />
             ) : (

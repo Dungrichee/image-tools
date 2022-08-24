@@ -18,6 +18,7 @@ function ImageMasonry(props: ImageMasonryProps) {
     const { title } = props;
     const classes = useStyles();
     const { images } = useAppSelector(({ imageSlice }) => imageSlice);
+
     return (
         <Scrollbars>
             <Box className={classes.cardList}>

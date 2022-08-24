@@ -19,6 +19,8 @@ interface TextFieldProps {
     shrink?: boolean;
     handleOnChange?: (name: string, value: string) => any;
     onlyNumber?: boolean;
+    rules?: any;
+    sx?: any;
 }
 
 function FormTextField(props: TextFieldProps) {
@@ -34,6 +36,8 @@ function FormTextField(props: TextFieldProps) {
         value,
         inputProps,
         shrink,
+        rules,
+        sx = {},
         handleOnChange,
     } = props;
 
@@ -62,10 +66,12 @@ function FormTextField(props: TextFieldProps) {
                     InputProps={inputProps}
                     InputLabelProps={{ shrink: shrink }}
                     disabled={isDisabled}
+                    sx={sx}
                 />
             )}
             rules={{
                 required: isRequired,
+                ...rules,
             }}
         />
     );

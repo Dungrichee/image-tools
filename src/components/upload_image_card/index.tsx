@@ -7,7 +7,7 @@ import SelectImageFromPC from 'components/select_image_from_pc';
 import { IUploadImageCard } from 'types';
 
 function UploadImageCard(props: IUploadImageCard) {
-    const { type, isMultiple } = props;
+    const { isMultiple } = props;
     const classes = useStyles();
 
     return (
@@ -20,7 +20,7 @@ function UploadImageCard(props: IUploadImageCard) {
                         </IconButton>
                     </Tooltip>
                 </Box>
-                <SelectImageFromPC type={type} isMultiple={isMultiple} />
+                <SelectImageFromPC isMultiple={isMultiple} />
                 <Typography variant="body2">Or drop image here</Typography>
             </Box>
             <Typography className={classes.otherOptions} variant="body2">

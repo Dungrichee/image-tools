@@ -2,9 +2,7 @@ import { createReducer, PayloadAction } from '@reduxjs/toolkit';
 import { TRequestState } from 'types/request_status';
 
 interface IApiState {
-    // [feat: string]: {
     [action: string]: TRequestState;
-    // };
 }
 
 const initialState: IApiState = {};

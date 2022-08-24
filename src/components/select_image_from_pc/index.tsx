@@ -10,7 +10,7 @@ import { calculatePercentage } from 'utils/calculate';
 import { uploadImages } from 'redux_store/image_storage/image_slice';
 
 function SelectImageFromPC(props: IUploadImageCard) {
-    const { type, isMultiple } = props;
+    const { isMultiple } = props;
     const dispatch = useAppDispatch();
     const { images } = useAppSelector(({ imageSlice }) => imageSlice);
     const { percentage } = useAppSelector(({ resizeSlice }) => resizeSlice);
@@ -43,7 +43,6 @@ function SelectImageFromPC(props: IUploadImageCard) {
     };
 
     const addImageToSlice = (image: IImage) => {
-        if (!type) return;
         dispatch(uploadImages(image));
     };
 

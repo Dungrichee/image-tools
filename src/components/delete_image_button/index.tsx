@@ -30,13 +30,13 @@ function DeleteImageButton(props: IDeleteImageButton) {
 
     return (
         <Button
-            variant="contained"
+            variant="outlined"
             size="small"
             color="error"
             onClick={onDeleteImage}
             endIcon={
                 isLoading || isDeleting ? (
-                    <Loading size={18} />
+                    <Loading size={18} color="red" />
                 ) : (
                     <MdOutlineDelete />
                 )

@@ -1,34 +1,35 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { initWatermarkOptions } from 'constants/options';
+import { IWatermarkOptions } from 'types/options';
+
 interface IWatermarkImageSlice {
-    watermarkName: string;
-    preview: boolean;
+    imgBase64: string;
+    watermark: IWatermarkOptions;
 }
 
 const initialState: IWatermarkImageSlice = {
-    watermarkName: 'Image tools',
-    preview: true,
+    imgBase64: '',
+    watermark: { ...initWatermarkOptions },
 };
 
 const watermarkImageSlice = createSlice({
     initialState,
     name: 'watermark',
     reducers: {
-        changeWatermarkName: (state, action) => {
-            state.watermarkName = action.payload;
-            state.preview = false;
+        setImgBase64: (state, action) => {
+            state.imgBase64 = action.payload;
         },
-        previewImage: (state) => {
-            state.preview = true;
+        changeWatermarkParams: (state, action) => {
+            state.watermark = { ...state.watermark, ...action.payload };
         },
         resetSlice: (state) => {
-            state.watermarkName = 'Image tools';
-            state.preview = true;
+            state.watermark = { ...initWatermarkOptions };
         },
     },
 });
 
 const { reducer, actions } = watermarkImageSlice;
 
-export const { changeWatermarkName, previewImage, resetSlice } = actions;
+export const { resetSlice, setImgBase64, changeWatermarkParams } = actions;
 export default reducer;

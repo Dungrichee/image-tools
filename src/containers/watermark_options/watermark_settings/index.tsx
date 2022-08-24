@@ -4,50 +4,102 @@ import { Box, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
 
 import { useAppDispatch, useAppSelector } from 'hook';
-import FormTextField from 'components/hook_form/form_text_field';
-import { changeWatermarkName } from 'redux_store/watermark_image/watermark_image_slice';
+import { initWatermarkOptions } from 'constants/options';
+import { changeWatermarkParams } from 'redux_store/watermark_image/watermark_image_slice';
 import { useDelayTimeout } from 'hook/use_delay_timeout';
+import { IWatermarkOptions } from 'types/options';
+import FormTextField from 'components/hook_form/form_text_field';
+import FormSlider from 'components/hook_form/form_slider';
 
 function WatermarkSettings() {
-    const classes = useStyles();
     const dispatch = useAppDispatch();
     const delayTimeout = useDelayTimeout();
-    const { images } = useAppSelector(({ imageSlice }) => imageSlice);
-    const { watermarkName } = useAppSelector(
+    const classes = useStyles();
+    const { watermark } = useAppSelector(
         ({ watermarkImageSlice }) => watermarkImageSlice,
     );
 
-    const { control, setValue } = useForm<{ name: string }>({
-        defaultValues: {
-            name: '',
-        },
+    const { control, reset } = useForm<IWatermarkOptions>({
+        defaultValues: { ...initWatermarkOptions },
     });
 
     useEffect(() => {
-        setValue('name', watermarkName);
-    }, [setValue, watermarkName]);
+        reset(watermark);
+    }, []);
 
-    const handleOnChange = (
-        name: string,
-        value: string | { id: string; name: string },
-    ) => {
-        delayTimeout(() => dispatch(changeWatermarkName(value)));
+    const handleOnChange = (name: string, value: string) => {
+        delayTimeout(() => dispatch(changeWatermarkParams({ [name]: value })));
+    };
+
+    const handleChangeSlider = (name: string, value: number | number[]) => {
+        dispatch(changeWatermarkParams({ [name]: value }));
     };
 
     return (
-        <Box>
-            <Typography variant="h6" my={2}>
-                Only applies to one image
-            </Typography>
-            <Box className={classes.formSize}>
-                <Typography>Water name </Typography>
+        <Box pt={3}>
+            <Box className={classes.optionRow}>
+                <Typography>Water text </Typography>
                 <FormTextField
                     control={control}
-                    name="name"
+                    name="text"
                     label="Name"
                     type="text"
                     handleOnChange={handleOnChange}
-                    isDisabled={images.length > 1}
+                />
+            </Box>
+            <Box className={classes.optionRow}>
+                <Typography>Text size </Typography>
+                <FormSlider
+                    control={control}
+                    max={64}
+                    min={8}
+                    name="textSize"
+                    handleOnChange={handleChangeSlider}
+                    currentValue={watermark.textSize}
+                />
+            </Box>
+            <Box className={classes.optionRow}>
+                <Typography>Font Family </Typography>
+                <FormTextField
+                    control={control}
+                    name="fontFamily"
+                    label="Font family"
+                    type="text"
+                    handleOnChange={handleOnChange}
+                />
+            </Box>
+            <Box className={classes.optionRow}>
+                <Typography>Opacity </Typography>
+                <FormSlider
+                    control={control}
+                    max={1}
+                    min={0}
+                    name="opacity"
+                    handleOnChange={handleChangeSlider}
+                    currentValue={watermark.opacity}
+                    step={0.1}
+                />
+            </Box>
+            <Box className={classes.optionRow}>
+                <Typography>Rotate </Typography>
+                <FormSlider
+                    control={control}
+                    max={360}
+                    min={-360}
+                    name="rotate"
+                    handleOnChange={handleChangeSlider}
+                    currentValue={watermark.rotate}
+                />
+            </Box>
+            <Box className={classes.optionRow}>
+                <Typography>Text color </Typography>
+                <FormTextField
+                    control={control}
+                    label="Text color"
+                    name="textColor"
+                    type="color"
+                    handleOnChange={handleOnChange}
+                    sx={{ width: 210 }}
                 />
             </Box>
         </Box>
@@ -57,10 +109,10 @@ function WatermarkSettings() {
 export default WatermarkSettings;
 
 const useStyles = makeStyles(() => ({
-    formSize: {
+    optionRow: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 12,
+        marginBottom: 16,
     },
 }));

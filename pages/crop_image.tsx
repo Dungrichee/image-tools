@@ -19,7 +19,9 @@ function CropImage() {
     const { images } = useAppSelector(({ imageSlice }) => imageSlice);
 
     useEffect(() => {
-        dispatch(resetImages());
+        return () => {
+            dispatch(resetImages());
+        };
     }, [dispatch]);
 
     const getCropData = () => {
@@ -35,7 +37,6 @@ function CropImage() {
                     title="Crop Image"
                     description="Crop JPG, PNG or GIF by defining a rectangle in pixels.
                     Cut your image online."
-                    type="crop"
                 />
             ) : (
                 <Box className={classes.page}>

@@ -4,8 +4,7 @@ import { BiCrop } from 'react-icons/bi';
 import { SiConvertio } from 'react-icons/si';
 import { MdOutlineBrandingWatermark, MdOutlineImage } from 'react-icons/md';
 import { FcDonate } from 'react-icons/fc';
-import {GrDocumentImage} from 'react-icons/gr'
-import {AiOutlineFileJpg, AiOutlineFilePdf, AiOutlineHtml5} from 'react-icons/ai'
+import { AiOutlineFileJpg } from 'react-icons/ai';
 
 const ComponentOptions = [
     {
@@ -27,16 +26,11 @@ const ComponentOptions = [
                 url: 'convert_to_png',
                 icon: <MdOutlineImage />,
             },
-            {
-                title: 'To .pdf',
-                url: 'convert_to_pdf',
-                icon: <AiOutlineFilePdf />,
-            },
-            {
-                title: 'To .html',
-                url: 'convert_to_html',
-                icon: <AiOutlineHtml5 />,
-            },
+            // {
+            //     title: 'To .pdf',
+            //     url: 'convert_to_pdf',
+            //     icon: <AiOutlineFilePdf />,
+            // }
         ],
     },
     {
@@ -44,11 +38,11 @@ const ComponentOptions = [
         url: 'crop_image',
         icon: <BiCrop />,
     },
-    {
-        title: 'Remove Background',
-        url: 'remove_background',
-        icon: <GrDocumentImage color='red' />,
-    },
+    // {
+    //     title: 'Remove Background',
+    //     url: 'remove_background',
+    //     icon: <GrDocumentImage color='red' />,
+    // },
     {
         title: 'Watermark Image',
         url: 'watermark_image',

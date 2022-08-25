@@ -34,9 +34,8 @@ function CropImage() {
         <UserLayout>
             {!images.length ? (
                 <UploadPage
-                    title="Crop Image"
-                    description="Crop JPG, PNG or GIF by defining a rectangle in pixels.
-                    Cut your image online."
+                    title="Image Crop Tool"
+                    description="Crop pictures online to get an exact cutout of the photo you want."
                 />
             ) : (
                 <Box className={classes.page}>

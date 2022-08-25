@@ -25,8 +25,8 @@ function ResizeImage() {
             {!images.length ? (
                 <UploadPage
                     title="Resize Image"
-                    description="Resize JPG by defining new height and width pixels.
-Resize many JPG images at once online."
+                    description="Resize  JPG, PNG, SVG or GIF by defining new height and width pixels.
+                    Change image dimensions in bulk."
                     isMultiple
                 />
             ) : (

@@ -20,6 +20,8 @@ interface TextFieldProps {
     handleOnChange?: (name: string, value: string) => any;
     onlyNumber?: boolean;
     rules?: any;
+    rows?: number;
+    multiline?: boolean;
     sx?: any;
 }
 
@@ -38,6 +40,8 @@ function FormTextField(props: TextFieldProps) {
         shrink,
         rules,
         sx = {},
+        multiline = false,
+        rows = 1,
         handleOnChange,
     } = props;
 
@@ -52,6 +56,8 @@ function FormTextField(props: TextFieldProps) {
                     size={size}
                     variant="outlined"
                     name={name}
+                    multiline={multiline}
+                    minRows={rows}
                     error={!!error}
                     value={value !== undefined ? value : field.value}
                     onChange={(e) => {

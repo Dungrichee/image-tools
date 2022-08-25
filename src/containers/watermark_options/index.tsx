@@ -75,7 +75,7 @@ function WatermarkOptions() {
                     />
                     <Tab
                         icon={<BsInfoCircle size={32} />}
-                        label="How to resize"
+                        label="How to use"
                         classes={{ root: classes.tab }}
                     />
                 </Tabs>

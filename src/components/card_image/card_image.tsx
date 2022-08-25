@@ -4,6 +4,8 @@ import { Box, Chip, Divider, IconButton, Typography } from '@mui/material';
 import { CgSize } from 'react-icons/cg';
 import { HiArrowNarrowRight } from 'react-icons/hi';
 import { MdDeleteOutline } from 'react-icons/md';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import { IImage } from 'types';
 import { useAppDispatch, useAppSelector } from 'hook';
@@ -49,16 +51,17 @@ function CardImage(props: ICardImageProps) {
                     <MdDeleteOutline size={24} color="red" />
                 </IconButton>
             </Box>
-            <img
+            <LazyLoadImage
                 src={image.src}
-                alt={image.name}
-                loading="lazy"
+                effect="blur"
+                placeholderSrc={image.name}
                 style={{
                     borderBottomLeftRadius: 4,
                     borderBottomRightRadius: 4,
                     display: 'block',
                     width: '100%',
                 }}
+                alt={image.name}
             />
             <Typography
                 className={classes.cardLabel}
@@ -120,5 +123,6 @@ const useStyles = makeStyles(() => ({
         alignItems: 'center',
         borderRadius: '50%',
         boxShadow: BOX_SHADOW,
+        zIndex: 1
     },
 }));

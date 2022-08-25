@@ -4,23 +4,15 @@ import React from 'react';
 function Guide() {
     return (
         <Box>
-            {/* <Typography variant="h6" my={2}>
-                How to resize an image?
-            </Typography> */}
             <Box lineHeight={22}>
                 <Typography mb={1}>
-                    1. Upload the photo you want to resize.
+                    1. Upload the photo you want to crop.
                 </Typography>
                 <Typography mb={1}>
-                    2. In the drop-down menu, choose the format you want your
-                    images to be converted to.
+                    2. Upload your file to the image compressor. It can be an image, document or even a video.
                 </Typography>
                 <Typography mb={1}>
-                    3. You can also use the DPI to change the image size when it
-                    comes to printing
-                </Typography>
-                <Typography mb={1}>
-                    4. Click on `Resize Images` to resize your photo.
+                    3. Click on `Crop Images` to crop your photo.
                 </Typography>
             </Box>
         </Box>

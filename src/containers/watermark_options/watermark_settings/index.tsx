@@ -42,7 +42,7 @@ function WatermarkSettings() {
                 <FormTextField
                     control={control}
                     name="text"
-                    label="Name"
+                    label="Text"
                     type="text"
                     handleOnChange={handleOnChange}
                 />

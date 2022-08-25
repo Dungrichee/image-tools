@@ -3,6 +3,8 @@ import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/material';
 import Scrollbars from 'react-custom-scrollbars-2';
 import { Watermark } from '@hirohe/react-watermark';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import { useAppDispatch, useAppSelector } from 'hook';
 import UploadPage from 'containers/upload_page';
@@ -32,8 +34,7 @@ function WatermarkImage() {
             {!images.length ? (
                 <UploadPage
                     title="Watermark Image"
-                    description="Resize JPG by defining new height and width pixels.
-Resize many JPG images at once online."
+                    description="Add watermark to your pictures."
                     type="watermark"
                 />
             ) : (
@@ -66,12 +67,13 @@ Resize many JPG images at once online."
                                         textSize={watermark.textSize}
                                         wrapperElement="div"
                                     >
-                                        <img
+                                        <LazyLoadImage
                                             src={images[0].src}
                                             alt={images[0].name}
-                                            loading="lazy"
+                                            effect="blur"
                                             width="100%"
                                             height="100%"
+                                            placeholderSrc={images[0].name}
                                             style={{
                                                 borderRadius: 4,
                                                 display: 'block',

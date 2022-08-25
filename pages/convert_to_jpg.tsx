@@ -2,6 +2,8 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from 'hook';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/material';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import UploadPage from 'containers/upload_page';
 import UserLayout from 'containers/user_layout';
@@ -23,8 +25,7 @@ function ConvertToJPG() {
             {!images.length ? (
                 <UploadPage
                     title="Convert image to JPG"
-                    description="Convert JPG by defining new height and width pixels.
-Resize many JPG images at once online."
+                    description="Convert PNG to JPG, SVG to JPG, camera raw files like NEF and CR2 to JPG. Convert image to JPG online"
                 />
             ) : (
                 <Box className={classes.page}>
@@ -36,18 +37,22 @@ Resize many JPG images at once online."
                         </Box>
 
                         <Box width="50%" position="relative" margin="0 auto">
-                            <img
-                                src={images[0]?.src}
-                                alt={images[0]?.name}
-                                loading="lazy"
+                            <LazyLoadImage
+                                src={images[0].src}
+                                alt={images[0].name}
+                                effect="blur"
                                 width="100%"
                                 height="100%"
+                                placeholderSrc={images[0].name}
+                                style={{
+                                    borderRadius: 4,
+                                    display: 'block',
+                                }}
                                 id="imgEl"
                             />
                         </Box>
                     </Box>
                     <ConvertOptions type="JPG" />
-                    {/* <RemoveBgOptions /> */}
                 </Box>
             )}
         </UserLayout>

@@ -90,8 +90,6 @@ function UserSidebar() {
             </Box>
             <Box className={classes.sidebarBottom}>
                     <SocialNetwork />
-                    {/* <Typography>Nguyễn Dũng</Typography>
-                    <Typography variant="body2">Super admin</Typography> */}
             </Box>
         </Box>
     );

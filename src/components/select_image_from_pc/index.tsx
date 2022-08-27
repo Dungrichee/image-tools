@@ -2,45 +2,17 @@ import React from 'react';
 import { Box, Button, IconButton, Tooltip } from '@mui/material';
 import { AiOutlineUpload } from 'react-icons/ai';
 import { BsLaptop } from 'react-icons/bs';
-import { v4 as uuidV4 } from 'uuid';
 
 import { IImage, IUploadImageCard } from 'types';
 import { useAppDispatch, useAppSelector } from 'hook';
-import { calculatePercentage } from 'utils/calculate';
 import { uploadImages } from 'redux_store/image_storage/image_slice';
+import { preSaveImages } from 'utils/images';
 
 function SelectImageFromPC(props: IUploadImageCard) {
-    const { isMultiple } = props;
     const dispatch = useAppDispatch();
     const { images } = useAppSelector(({ imageSlice }) => imageSlice);
     const { percentage } = useAppSelector(({ resizeSlice }) => resizeSlice);
-
-    const getSizeImage = (file: File) => {
-        return new Promise<IImage>((resolve, reject) => {
-            const imageObj = new Image();
-            imageObj.src = URL.createObjectURL(file);
-            imageObj.onload = () =>
-                resolve({
-                    id: uuidV4(),
-                    file,
-                    src: imageObj.src,
-                    width: imageObj.width,
-                    height: imageObj.height,
-                    name: file.name,
-                    size: file.size,
-                    resizedHeight: calculatePercentage(
-                        imageObj.height,
-                        percentage,
-                    ),
-                    resizedWidth: calculatePercentage(
-                        imageObj.width,
-                        percentage,
-                    ),
-                });
-
-            imageObj.onerror = reject;
-        });
-    };
+    const { isMultiple } = props;
 
     const addImageToSlice = (image: IImage) => {
         dispatch(uploadImages(image));
@@ -51,7 +23,7 @@ function SelectImageFromPC(props: IUploadImageCard) {
         if (!files.length) return;
 
         for (const file of files) {
-            getSizeImage(file).then((response: IImage) => {
+            preSaveImages(file, percentage).then((response: IImage) => {
                 addImageToSlice(response);
             });
         }

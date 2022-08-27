@@ -9,6 +9,14 @@ class ImageTool extends BaseClass {
 
         return res;
     };
+
+    uploadWithGGDrive = async () => {
+        const res = await this.doFetch(`${this.getBaseRoute()}/upload_file_with_ggdrive`, {
+            method: 'get',
+        });
+
+        return res;
+    }
 }
 
 export default ImageTool;

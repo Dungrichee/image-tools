@@ -105,8 +105,10 @@ export const downloadZipImageFolder = (
             base64: true,
         });
     }
+    
+    const fileName = `${new Date().getTime()}-resize-image.zip`
 
     zip.generateAsync({ type: 'blob' }).then(function (content) {
-        saveAs(content, 'resize_image.zip');
+        saveAs(content, fileName);
     });
 };

@@ -29,7 +29,7 @@ function ResizeOptions() {
     const resizeMultipleImages = () => {
         const newImages: { url: string; fileName: string }[] = [];
 
-        images.forEach((image: IImage, index: number) => {
+        images.forEach((image: IImage, index: number, array: IImage[]) => {
             const { file, resizedWidth, resizedHeight } = image;
             const reader = new FileReader();
             reader.readAsDataURL(file);
@@ -63,7 +63,7 @@ function ResizeOptions() {
 
                     newImages.push({ url: newImageUrl, fileName });
 
-                    if (index === images.length - 1) {
+                    if (index === array.length - 1) {
                         downloadZipImageFolder(newImages);
                     }
                 };

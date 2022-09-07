@@ -1,9 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { makeStyles } from '@mui/styles';
-import { Box, IconButton, Tooltip, Typography } from '@mui/material';
-import { FaGoogleDrive } from 'react-icons/fa';
+import { Box, Typography } from '@mui/material';
+import { FileUploadOutlined } from '@mui/icons-material';
 
-import { Client } from 'client';
 import { IImage, IUploadImageCard } from 'types';
 import { preSaveImages } from 'utils/images';
 import { useAppDispatch, useAppSelector } from 'hook';
@@ -21,7 +20,7 @@ function UploadImageCard(props: IUploadImageCard) {
         if (!dropzoneRef || !dropzoneRef?.current) return;
         dropzoneRef.current.addEventListener('dragover', dragover);
         dropzoneRef.current.addEventListener('drop', dropEnd);
-        dropzoneRef.current.addEventListener('paste', onPaste)
+        dropzoneRef.current.addEventListener('paste', onPaste);
 
         return () => {
             dropzoneRef?.current?.removeEventListener('dragover', dragover);
@@ -31,13 +30,13 @@ function UploadImageCard(props: IUploadImageCard) {
     }, [dropzoneRef.current]);
 
     const onPaste = (e: ClipboardEvent) => {
-        e.preventDefault()
-        const files = e.clipboardData?.files
-        if(!files?.length) return
+        e.preventDefault();
+        const files = e.clipboardData?.files;
+        if (!files?.length) return;
         preSaveImages(files[0], percentage).then((response: IImage) => {
             addImageToSlice(response);
         });
-    }
+    };
 
     const dragover = (e: DragEvent) => {
         e.preventDefault();
@@ -66,20 +65,14 @@ function UploadImageCard(props: IUploadImageCard) {
         dispatch(uploadImages(image));
     };
 
-    const handleUploadImageByDrive = () => {
-        const res = Client.imageTool.uploadWithGGDrive();
-        console.log('handle upload image by driver', res);
-    };
-
     return (
         <Box className={classes.root} ref={dropzoneRef}>
             <Box p={7}>
                 <Box mb={1}>
-                    <Tooltip title="Select image from Google Drive" arrow>
-                        <IconButton onClick={handleUploadImageByDrive}>
-                            <FaGoogleDrive size={56} />
-                        </IconButton>
-                    </Tooltip>
+                    <FileUploadOutlined
+                        style={{ fontSize: 64 }}
+                        color="secondary"
+                    />
                 </Box>
                 <SelectImageFromPC isMultiple={isMultiple} />
                 <Typography variant="body2">Or drop image here</Typography>

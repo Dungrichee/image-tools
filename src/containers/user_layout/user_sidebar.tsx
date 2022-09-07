@@ -104,6 +104,7 @@ const useStyles = makeStyles(() => ({
         flexDirection: 'column',
         justifyContent: 'space-between',
         overflow: 'hidden',
+        width: 230,
         '& *': {
             color: colorTypes.textWhite,
         },

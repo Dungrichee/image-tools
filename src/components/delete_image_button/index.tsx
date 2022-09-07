@@ -3,7 +3,7 @@ import { Button } from '@mui/material';
 import { MdOutlineDelete } from 'react-icons/md';
 
 import Loading from 'components/loading';
-import { useAppDispatch } from 'hook';
+import { useAppDispatch, useAppSelector } from 'hook';
 import { DELAY_TIMEOUT } from 'constants/time';
 import { resetImages } from 'redux_store/image_storage/image_slice';
 
@@ -14,6 +14,7 @@ interface IDeleteImageButton {
 
 function DeleteImageButton(props: IDeleteImageButton) {
     const { isLoading = false, callback } = props;
+    const { images } = useAppSelector(({ imageSlice }) => imageSlice);
     const [isDeleting, setIsDeleting] = useState(false);
     const dispatch = useAppDispatch();
 
@@ -42,7 +43,7 @@ function DeleteImageButton(props: IDeleteImageButton) {
                 )
             }
         >
-            Delete
+            {images.length > 1 ? 'Delete all' : 'Delete'}
         </Button>
     );
 }

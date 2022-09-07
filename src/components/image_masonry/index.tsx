@@ -2,13 +2,13 @@ import React from 'react';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import Masonry from '@mui/lab/Masonry';
-import { IconButton, Tooltip, Typography } from '@mui/material';
-import { FaGoogleDrive } from 'react-icons/fa';
+import { Typography } from '@mui/material';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 
 import { useAppSelector } from 'hook';
 import CardImage from 'components/card_image/card_image';
 import SelectImageFromPC from 'components/select_image_from_pc';
+import DeleteImageButton from 'components/delete_image_button';
 
 interface ImageMasonryProps {
     title: string;
@@ -29,11 +29,7 @@ function ImageMasonry(props: ImageMasonryProps) {
                 </Box>
                 <Box textAlign="center" my={1}>
                     <SelectImageFromPC />
-                    <Tooltip title="select images from Google Drive " arrow>
-                        <IconButton color="info">
-                            <FaGoogleDrive />
-                        </IconButton>
-                    </Tooltip>
+                    <DeleteImageButton />
                 </Box>
                 <Masonry
                     columns={4}

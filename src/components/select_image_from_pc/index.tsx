@@ -1,7 +1,6 @@
 import React from 'react';
-import { Box, Button, IconButton, Tooltip } from '@mui/material';
+import { Box, Button } from '@mui/material';
 import { AiOutlineUpload } from 'react-icons/ai';
-import { BsLaptop } from 'react-icons/bs';
 
 import { IImage, IUploadImageCard } from 'types';
 import { useAppDispatch, useAppSelector } from 'hook';
@@ -31,18 +30,22 @@ function SelectImageFromPC(props: IUploadImageCard) {
 
     if (images.length)
         return (
-            <Tooltip title="Upload from your computer" arrow>
-                <IconButton component="label">
-                    <BsLaptop />
-                    <input
-                        hidden
-                        accept="image/*"
-                        type="file"
-                        multiple
-                        onChange={fileSelectedHandler}
-                    />
-                </IconButton>
-            </Tooltip>
+            <Button
+                variant="contained"
+                component="label"
+                endIcon={<AiOutlineUpload />}
+                size="small"
+                style={{ marginRight: 8 }}
+            >
+                Upload
+                <input
+                    hidden
+                    accept="image/*"
+                    multiple
+                    type="file"
+                    onChange={fileSelectedHandler}
+                />
+            </Button>
         );
 
     return (

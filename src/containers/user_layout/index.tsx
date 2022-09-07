@@ -32,6 +32,6 @@ const useStyles = makeStyles(() => ({
         display: 'flex',
         flexDirection: 'column',
         flex: 1,
-        width: '80%',
+        width: 'calc(100% - 230px)',
     },
 }));

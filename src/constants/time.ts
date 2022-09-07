@@ -1,4 +1,4 @@
 export const DELAY_TIMEOUT = {
-    button: 1200,
-    img: 1250,
+    button: 600,
+    img: 1200,
 };

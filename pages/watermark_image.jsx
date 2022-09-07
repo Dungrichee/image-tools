@@ -53,6 +53,8 @@ function WatermarkImage() {
                                     position="relative"
                                     margin="0 auto"
                                     id="wrapperImage"
+                                    display="flex"
+                                    flex="1"
                                 >
                                     <Watermark
                                         fontFamily={watermark.fontFamily}

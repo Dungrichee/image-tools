@@ -1,12 +1,19 @@
 import React from 'react';
-import { LoadingButton } from '@mui/lab';
-import { Box, FormControl, Typography } from '@mui/material';
+import {
+    Box,
+    Button,
+    CircularProgress,
+    FormControl,
+    Typography,
+} from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { useForm } from 'react-hook-form';
 
 import { useAppDispatch } from 'hook';
 import { sendEmail } from 'redux_store/contact/contact_action';
 import { useIsRequestPending } from 'hook/use_get_status';
+import { toastMessage } from 'redux_store/toast';
+import { IContactForm } from 'types/email';
 import FormTextField from 'components/hook_form/form_text_field';
 import UserLayout from 'containers/user_layout';
 
@@ -14,8 +21,8 @@ function Contact() {
     const dispatch = useAppDispatch();
     const classes = useStyles();
     const isLoading = useIsRequestPending('sendEmail');
-    
-    const { control, handleSubmit } = useForm({
+
+    const { control, handleSubmit } = useForm<IContactForm>({
         defaultValues: {
             name: '',
             email: '',
@@ -24,8 +31,15 @@ function Contact() {
         },
     });
 
-    const onSubmit = (data: any) => {
-        dispatch(sendEmail(data));
+    const onSubmit = (data: IContactForm) => {
+        dispatch(sendEmail(data))
+            .unwrap()
+            .then(() =>
+                toastMessage.success(
+                    'The message has been sent, the system will reply you soon',
+                ),
+            )
+            .catch(() => toastMessage.error('message sending failed'));
     };
 
     return (
@@ -49,6 +63,8 @@ function Contact() {
                                 control={control}
                                 name="name"
                                 label="Your Name *"
+                                isRequired
+                                helperText="Your name cannot be blank"
                             />
                         </FormControl>
                         <FormControl margin="dense">
@@ -56,6 +72,8 @@ function Contact() {
                                 control={control}
                                 name="email"
                                 label="Your Email *"
+                                isRequired
+                                helperText="Your email cannot be blank"
                             />
                         </FormControl>
                         <FormControl margin="dense">
@@ -63,6 +81,8 @@ function Contact() {
                                 control={control}
                                 name="subject"
                                 label="Subject *"
+                                isRequired
+                                helperText="Your subject cannot be blank"
                             />
                         </FormControl>
                         <FormControl margin="dense">
@@ -72,18 +92,23 @@ function Contact() {
                                 label="Write a message *"
                                 multiline
                                 rows={5}
+                                isRequired
+                                helperText="Your message cannot be blank"
                             />
                         </FormControl>
                     </Box>
 
                     <Box mt={2}>
-                        <LoadingButton
+                        <Button
                             variant="contained"
                             type="submit"
-                            loading={isLoading}
-                        >
-                            Send message
-                        </LoadingButton>
+                            disabled={isLoading}
+                            endIcon={
+                                isLoading ? (
+                                    <CircularProgress size={22} />
+                                ) : null
+                            }
+                        >Send message</Button>
                     </Box>
                 </Box>
             </Box>

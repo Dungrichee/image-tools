@@ -1,7 +1,8 @@
+import { IContactForm } from 'types/email';
 import BaseClass from './base';
 
 class ImageTool extends BaseClass {
-    sendEmail = async (data: any) => {
+    sendEmail = async (data: IContactForm) => {
         const res = await this.doFetch(`${this.getBaseRoute()}/send_email`, {
             method: 'post',
             data,

@@ -1,7 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { Client } from 'client';
 
-export const sendEmail = createAsyncThunk<any, any>(
+import { Client } from 'client';
+import { IContactForm } from 'types/email';
+
+export const sendEmail = createAsyncThunk<any, IContactForm>(
     'contact/sendEmail',
     async (payload, { rejectWithValue }) => {
         try {

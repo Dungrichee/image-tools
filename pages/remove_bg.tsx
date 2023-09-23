@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { LazyLoadImage } from 'react-lazy-load-image-component';

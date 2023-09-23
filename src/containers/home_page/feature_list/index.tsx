@@ -4,6 +4,7 @@ import React from 'react';
 import { AiOutlineFileJpg } from 'react-icons/ai';
 import { BiCrop } from 'react-icons/bi';
 import { MdOutlineBrandingWatermark, MdOutlineImage } from 'react-icons/md';
+import { RemoveCircleOutlineOutlined, Restore } from '@mui/icons-material';
 import { TbResize } from 'react-icons/tb';
 
 import FeatureItem from './feature_item';
@@ -24,13 +25,33 @@ function FeatureList() {
                 width="60%"
                 margin="0 auto"
             >
+                 <FeatureItem
+                    functionName="Restoration Image"
+                    functionDes="Sharpen colors and enhance faces, turn damaged photos into cherished memories."
+                    icon={Restore}
+                    iconSx={{
+                        width: 72,
+                        height: 72
+                    }}
+                    to=""
+                />
+                 <FeatureItem
+                    functionName="Remove background"
+                    functionDes="Remove background from images for free using artificial intelligence."
+                    icon={RemoveCircleOutlineOutlined}
+                    iconSx={{
+                        width: 72,
+                        height: 72
+                    }}
+                    to=""
+                />
                 <FeatureItem
                     functionName="Resize Image"
                     functionDes="Resize JPG, PNG, SVG or GIF by defining new height and width pixels. Change image dimensions in bulk."
                     icon={TbResize}
                     to=""
                 />
-                <FeatureItem
+                {/* <FeatureItem
                     functionName="Convert to JPG"
                     functionDes="Convert PNG to JPG, SVG to JPG, camera raw files like NEF and CR2 to JPG. Convert image to JPG online."
                     icon={AiOutlineFileJpg}
@@ -41,7 +62,7 @@ function FeatureList() {
                     functionDes="Convert JPG to PNG, SVG to PNG, camera raw files like NEF and CR2 to PNG. Convert image to PNG online."
                     icon={MdOutlineImage}
                     to=""
-                />
+                /> */}
                 <FeatureItem
                     functionName="Crop Image"
                     functionDes="Crop pictures online to get an exact cutout of the photo you want."

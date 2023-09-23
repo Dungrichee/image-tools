@@ -14,7 +14,8 @@ function UploadImageCard(props: IUploadImageCard) {
     const { percentage } = useAppSelector(({ resizeSlice }) => resizeSlice);
     const classes = useStyles();
     const dropzoneRef = useRef<HTMLElement | null>(null);
-    const { isMultiple } = props;
+
+    const { isMultiple, callback } = props;
 
     useEffect(() => {
         if (!dropzoneRef || !dropzoneRef?.current) return;
@@ -63,6 +64,8 @@ function UploadImageCard(props: IUploadImageCard) {
 
     const addImageToSlice = (image: IImage) => {
         dispatch(uploadImages(image));
+
+        callback && callback(image.file)
     };
 
     return (

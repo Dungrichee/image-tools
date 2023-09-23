@@ -12,14 +12,16 @@ import ConvertOptions from 'containers/convert_options';
 import { resetImages } from 'redux_store/image_storage/image_slice';
 
 function ConvertToJPG() {
-    const classes = useStyles();
     const dispatch = useAppDispatch();
+    const classes = useStyles();
     const { images } = useAppSelector(({ imageSlice }) => imageSlice);
+
     useEffect(() => {
         return () => {
             dispatch(resetImages());
         };
     }, []);
+
     return (
         <UserLayout>
             {!images.length ? (

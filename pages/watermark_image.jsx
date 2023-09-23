@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/material';
-import Scrollbars from 'react-custom-scrollbars-2';
 import { Watermark } from '@hirohe/react-watermark';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import Scrollbars from 'react-custom-scrollbars-2';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import { useAppDispatch, useAppSelector } from 'hook';
 import UploadPage from 'containers/upload_page';
 import UserLayout from 'containers/user_layout';
 import WatermarkOptions from 'containers/watermark_options';
+import DeleteImageButton from 'components/delete_image_button';
 import { resetSlice } from 'redux_store/watermark_image/watermark_image_slice';
 import { resetImages } from 'redux_store/image_storage/image_slice';
-import DeleteImageButton from 'components/delete_image_button';
 
 function WatermarkImage() {
     const classes = useStyles();

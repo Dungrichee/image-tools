@@ -11,6 +11,24 @@ class ImageTool extends BaseClass {
         return res;
     };
 
+    restorationImage = async (data: any) => {
+        const res = await this.doFetch(`${this.getBaseRoute()}/gfpgan`, {
+            method: 'post',
+            data,
+        })
+
+        return res
+    }
+
+    removeBackground = async (data: any) => {
+        const res = await this.doFetch(`${this.getBaseRoute()}/remove_bg`, {
+            method: 'post',
+            data,
+        })
+
+        return res
+    }
+
     uploadWithGGDrive = async () => {
         const res = await this.doFetch(`${this.getBaseRoute()}/upload_file_with_ggdrive`, {
             method: 'get',

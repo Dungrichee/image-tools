@@ -2,28 +2,44 @@ import React from 'react';
 import { TbResize } from 'react-icons/tb';
 import { BiCrop, BiDonateHeart } from 'react-icons/bi';
 import { SiConvertio } from 'react-icons/si';
-import { MdOutlineBrandingWatermark, MdOutlineContactSupport, MdOutlineImage } from 'react-icons/md';
+import {
+    MdOutlineBrandingWatermark,
+    MdOutlineContactSupport,
+    MdOutlineImage,
+} from 'react-icons/md';
 import { AiOutlineFileJpg } from 'react-icons/ai';
+import { FcDataRecovery } from 'react-icons/fc';
+import { Wallpaper } from '@mui/icons-material';
 
 const ComponentOptions = [
     {
+        title: 'Restoration image',
+        url: '/restoration',
+        icon: <FcDataRecovery fill="white" />,
+    },
+    {
+        title: 'Remove BG',
+        url: '/remove_bg',
+        icon: <Wallpaper fill="white" fontSize='small' />,
+    },
+    {
         title: 'Resize Image',
         url: '/resize_image',
-        icon: <TbResize fill='white' />,
+        icon: <TbResize fill="white" />,
     },
     {
         title: 'Convert Image',
-        icon: <SiConvertio fill='white' />,
+        icon: <SiConvertio fill="white" />,
         subMenu: [
             {
                 title: 'Convert to JPG',
                 url: '/convert_to_jpg',
-                icon: <AiOutlineFileJpg fill='white' />,
+                icon: <AiOutlineFileJpg fill="white" />,
             },
             {
                 title: 'Convert to PNG',
                 url: '/convert_to_png',
-                icon: <MdOutlineImage fill='white' />,
+                icon: <MdOutlineImage fill="white" />,
             },
             // {
             //     title: 'To .pdf',
@@ -35,7 +51,7 @@ const ComponentOptions = [
     {
         title: 'Crop Image',
         url: '/crop_image',
-        icon: <BiCrop fill='white' />,
+        icon: <BiCrop fill="white" />,
     },
     // {
     //     title: 'Remove Background',
@@ -45,17 +61,17 @@ const ComponentOptions = [
     {
         title: 'Watermark Image',
         url: '/watermark_image',
-        icon: <MdOutlineBrandingWatermark fill='white' />,
+        icon: <MdOutlineBrandingWatermark fill="white" />,
     },
     {
         title: 'Contact',
         url: '/contact',
-        icon: <MdOutlineContactSupport fill='white' />,
+        icon: <MdOutlineContactSupport fill="white" />,
     },
     {
         title: 'Donate',
         url: '/donate',
-        icon: <BiDonateHeart fill='white' />,
+        icon: <BiDonateHeart fill="white" />,
     },
 ];
 

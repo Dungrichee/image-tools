@@ -8,10 +8,11 @@ interface IFeatureItem {
     functionName: string;
     functionDes: string;
     to: string;
+    iconSx?: any;
 }
 
 function FeatureItem(props: IFeatureItem) {
-    const { functionDes, functionName, icon: Icon } = props;
+    const { functionDes, functionName, icon: Icon, iconSx = {} } = props;
     return (
         <Box
             textAlign="center"
@@ -23,10 +24,18 @@ function FeatureItem(props: IFeatureItem) {
             boxShadow={BOX_SHADOW}
         >
             <Box>
-              <Icon size={72} style={{color: lightTheme.palette.primary.main}} />
+                <Icon
+                    size={72}
+                    style={{
+                        color: lightTheme.palette.primary.main,
+                        ...iconSx,
+                    }}
+                />
             </Box>
             <Typography variant="h6">{functionName}</Typography>
-            <Typography color="secondary" variant='body2'>{functionDes}</Typography>
+            <Typography color="secondary" variant="body2">
+                {functionDes}
+            </Typography>
         </Box>
     );
 }

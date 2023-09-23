@@ -5,6 +5,7 @@ export interface IFunctionInfo {
 
 export interface IUploadImageCard {
     isMultiple?: boolean
+    callback?: (file: File) => void
 }
 
 export interface IImage {

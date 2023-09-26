@@ -16,6 +16,11 @@
     "jsx": "preserve",
     "incremental": true,
   },
+  "plugins": [
+    {
+      "name": "next"
+    }
+  ],
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/utils/routers.js", "pages/watermark_image.jsx", "pages/api/v1/convert_to_pdf.js", "pages/api/v1/upload_file_with_ggdrive.js"],
   "exclude": ["node_modules"]
 }

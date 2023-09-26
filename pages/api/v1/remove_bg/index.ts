@@ -1,6 +1,6 @@
-import fs from 'fs';
+// import fs from 'fs';
+// import axios from 'axios';
 import Replicate from 'replicate';
-import axios from 'axios';
 import { NextApiRequest } from 'next';
 
 interface ExtendedNextApiRequest extends NextApiRequest {
@@ -50,24 +50,24 @@ export default async function handler(req: ExtendedNextApiRequest, res: any) {
     }
 }
 
-const downloadAndSaveImage = async (imageUrl: string, savePath: string) => {
-    const response = await axios.get(imageUrl, {
-        responseType: 'arraybuffer',
-        proxy: {
-            protocol: 'http',
-            host: '185.199.228.220',
-            port: 7492,
-            auth: {
-                username: 'skadptkd',
-                password: 'jlw1nom0gj4q',
-            },
-        },
-    });
+// const downloadAndSaveImage = async (imageUrl: string, savePath: string) => {
+//     const response = await axios.get(imageUrl, {
+//         responseType: 'arraybuffer',
+//         proxy: {
+//             protocol: 'http',
+//             host: '185.199.228.220',
+//             port: 7492,
+//             auth: {
+//                 username: 'skadptkd',
+//                 password: 'jlw1nom0gj4q',
+//             },
+//         },
+//     });
 
-    if (response.status === 200) {
-        fs.writeFileSync(savePath, Buffer.from(response.data));
-        return true;
-    } else {
-        return false;
-    }
-};
+//     if (response.status === 200) {
+//         fs.writeFileSync(savePath, Buffer.from(response.data));
+//         return true;
+//     } else {
+//         return false;
+//     }
+// };

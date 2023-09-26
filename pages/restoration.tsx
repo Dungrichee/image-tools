@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import {
     Box,
-    Button,
     FormControlLabel,
     FormLabel,
-    TextField,
     Typography,
 } from '@mui/material';
 import { makeStyles } from '@mui/styles';
@@ -12,8 +10,8 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Switch, { SwitchProps } from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
 
-import Scrollbars from 'react-custom-scrollbars-2';
-import Image from 'next/image';
+// import Scrollbars from 'react-custom-scrollbars-2';
+// import Image from 'next/image';
 
 import { useAppDispatch, useAppSelector } from 'hook';
 import { resetImages } from 'redux_store/image_storage/image_slice';
@@ -22,8 +20,8 @@ import UserLayout from 'containers/user_layout';
 import { restorationImage } from 'redux_store/restoration/actions';
 import { toastMessage } from 'redux_store/toast';
 import UploadPage from 'containers/upload_page';
-import ConvertOptions from 'containers/convert_options';
-import Toggle from 'components/toggle';
+// import ConvertOptions from 'containers/convert_options';
+// import Toggle from 'components/toggle';
 import { CompareSlider } from 'components/compare_slide';
 import RestorationOptions from 'containers/restoration_options';
 
@@ -68,6 +66,8 @@ function ImageRestoration() {
             .then((data) => setRestoredImage(data.imageUrl))
             .catch((error) => toastMessage.error(error.message));
     };
+
+    console.log('restoredImage', restoredImage)
 
     // const handleCallback = async (file: File) => {
     //     const imgBase64 = (await toBase64(file)) as string;

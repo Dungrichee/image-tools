@@ -4,7 +4,6 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import optimizeImage from 'assets/images/introduction/optimize_image.png';
 import editPhoto from 'assets/images/introduction/edit_photo.png';
-import smartResize from 'assets/images/introduction/smart_resize.png';
 
 function Introduction() {
     return (

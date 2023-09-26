@@ -1,9 +1,8 @@
+import React from 'react';
 import { Box, Theme, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import React from 'react';
-import { AiOutlineFileJpg } from 'react-icons/ai';
 import { BiCrop } from 'react-icons/bi';
-import { MdOutlineBrandingWatermark, MdOutlineImage } from 'react-icons/md';
+import { MdOutlineBrandingWatermark } from 'react-icons/md';
 import { RemoveCircleOutlineOutlined, Restore } from '@mui/icons-material';
 import { TbResize } from 'react-icons/tb';
 

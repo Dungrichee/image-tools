@@ -28,7 +28,7 @@ const nextConfig = {
                     { key: 'Access-Control-Allow-Credentials', value: 'true' },
                     {
                         key: 'Access-Control-Allow-Origin',
-                        value: ['*', 'http://localhost:3000/api/v1/gfpgan'],
+                        value: 'http://localhost:3000/api/v1/gfpgan',
                     },
                     {
                         key: 'Access-Control-Allow-Methods',

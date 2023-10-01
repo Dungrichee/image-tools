@@ -11,10 +11,12 @@ function SelectImageFromPC(props: IUploadImageCard) {
     const dispatch = useAppDispatch();
     const { images } = useAppSelector(({ imageSlice }) => imageSlice);
     const { percentage } = useAppSelector(({ resizeSlice }) => resizeSlice);
-    const { isMultiple } = props;
+    const { isMultiple, callback } = props;
 
     const addImageToSlice = (image: IImage) => {
         dispatch(uploadImages(image));
+
+        callback && callback(image.file)
     };
 
     const fileSelectedHandler = (e: React.BaseSyntheticEvent) => {

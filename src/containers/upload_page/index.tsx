@@ -8,11 +8,11 @@ import UploadImageCard from 'components/upload_image_card';
 
 function UploadPage(props: IUploadPage) {
     const classes = useStyles();
-    const { title, description, isMultiple } = props;
+    const { title, description, isMultiple, callback } = props;
     return (
         <Box className={classes.section}>
             <FunctionInfo title={title} description={description} />
-            <UploadImageCard isMultiple={isMultiple} />
+            <UploadImageCard isMultiple={isMultiple} callback={callback} />
         </Box>
     );
 }

@@ -1,28 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import {
-    Box,
-    FormControlLabel,
-    FormLabel,
-    Typography,
-} from '@mui/material';
+import { Box, FormControlLabel, FormLabel, Typography } from '@mui/material';
 import { makeStyles } from '@mui/styles';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Switch, { SwitchProps } from '@mui/material/Switch';
 import { styled } from '@mui/material/styles';
 
-// import Scrollbars from 'react-custom-scrollbars-2';
-// import Image from 'next/image';
-
 import { useAppDispatch, useAppSelector } from 'hook';
 import { resetImages } from 'redux_store/image_storage/image_slice';
-import DeleteImageButton from 'components/delete_image_button';
-import UserLayout from 'containers/user_layout';
 import { restorationImage } from 'redux_store/restoration/actions';
 import { toastMessage } from 'redux_store/toast';
-import UploadPage from 'containers/upload_page';
-// import ConvertOptions from 'containers/convert_options';
-// import Toggle from 'components/toggle';
 import { CompareSlider } from 'components/compare_slide';
+
+import DeleteImageButton from 'components/delete_image_button';
+import UserLayout from 'containers/user_layout';
+import UploadPage from 'containers/upload_page';
 import RestorationOptions from 'containers/restoration_options';
 
 function ImageRestoration() {
@@ -30,14 +21,8 @@ function ImageRestoration() {
     const classes = useStyles();
     const { images } = useAppSelector(({ imageSlice }) => imageSlice);
 
-    const [restoredImage, setRestoredImage] = useState<string | null>(null);
-    // const [restoredLoaded, setRestoredLoaded] = useState<boolean>(false);
+    const [restoredImage, setRestoredImage] = useState<string | ''>('');
     const [sideBySide, setSideBySide] = useState<boolean>(false);
-
-    // const [imageDataUri, setImageDataUri] = useState('');
-
-    // const fetcher = (url: string) => fetch(url).then((res) => res.json());
-    // const { data, mutate } = useSWR('/api/remaining', fetcher);
 
     useEffect(() => {
         return () => {
@@ -66,13 +51,6 @@ function ImageRestoration() {
             .then((data) => setRestoredImage(data.imageUrl))
             .catch((error) => toastMessage.error(error.message));
     };
-
-    console.log('restoredImage', restoredImage)
-
-    // const handleCallback = async (file: File) => {
-    //     const imgBase64 = (await toBase64(file)) as string;
-    //     setImageDataUri(imgBase64);
-    // };
 
     return (
         <UserLayout>
@@ -124,7 +102,12 @@ function ImageRestoration() {
                                     justifyContent="center"
                                 >
                                     <Box textAlign="center" flex={0.45}>
-                                        <Typography component="h2" fontWeight={700}>Original Photo</Typography>
+                                        <Typography
+                                            component="h2"
+                                            fontWeight={700}
+                                        >
+                                            Original Photo
+                                        </Typography>
                                         <LazyLoadImage
                                             src={images[0].src}
                                             effect="blur"
@@ -139,29 +122,34 @@ function ImageRestoration() {
                                         />
                                     </Box>
                                     <Box textAlign="center" flex={0.45}>
-                                        <Typography component="h2" fontWeight={700}>Restored Photo</Typography>
+                                        <Typography
+                                            component="h2"
+                                            fontWeight={700}
+                                        >
+                                            Restored Photo
+                                        </Typography>
                                         <LazyLoadImage
-                                            src={images[0].src}
+                                            src={restoredImage}
+                                            // loading='lazy'
                                             effect="blur"
-                                            placeholderSrc={images[0].name}
+                                            placeholderSrc={restoredImage}
                                             style={{
                                                 borderRadius: 4,
                                                 display: 'block',
                                                 width: '100%',
                                                 height: '100%',
                                             }}
-                                            alt={images[0].name}
+                                            alt={restoredImage}
                                         />
                                     </Box>
                                 </Box>
                             )}
 
-                            {/* {sideBySide && ( */}
                             {sideBySide && (
                                 <Box flex={0.6} display="flex" width="620px">
                                     <CompareSlider
                                         original={images[0].src}
-                                        restored={images[0].src}
+                                        restored={restoredImage}
                                     />
                                 </Box>
                             )}

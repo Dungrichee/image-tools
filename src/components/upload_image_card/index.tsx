@@ -77,7 +77,7 @@ function UploadImageCard(props: IUploadImageCard) {
                         color="secondary"
                     />
                 </Box>
-                <SelectImageFromPC isMultiple={isMultiple} />
+                <SelectImageFromPC isMultiple={isMultiple} callback={callback} />
                 <Typography variant="body2">Or drop image here</Typography>
             </Box>
             <Typography className={classes.otherOptions} variant="body2">

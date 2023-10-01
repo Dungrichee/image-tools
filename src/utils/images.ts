@@ -1,5 +1,5 @@
 import { v4 as uuidV4 } from 'uuid';
-import { IImage } from "types";
+import { IImage } from 'types';
 import { calculatePercentage } from './calculate';
 
 export const preSaveImages = (file: File, percentage: number) => {
@@ -15,16 +15,18 @@ export const preSaveImages = (file: File, percentage: number) => {
                 height: imageObj.height,
                 name: file.name,
                 size: file.size,
-                resizedHeight: calculatePercentage(
-                    imageObj.height,
-                    percentage,
-                ),
-                resizedWidth: calculatePercentage(
-                    imageObj.width,
-                    percentage,
-                ),
+                resizedHeight: calculatePercentage(imageObj.height, percentage),
+                resizedWidth: calculatePercentage(imageObj.width, percentage),
             });
 
         imageObj.onerror = reject;
     });
-}
+};
+
+export const toBase64 = (file: any) =>
+    new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = reject;
+    });

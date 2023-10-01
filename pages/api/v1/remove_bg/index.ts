@@ -23,7 +23,7 @@ export default async function handler(req: ExtendedNextApiRequest, res: any) {
             if (!imageDataUri) throw Error('Hinh anh khong hop le');
 
             const imageUrl: any = await replicate.run(
-                'tencentarc/gfpgan:9283608cc6b7be6b65a8e44983db012355fde4132009bf99d976b2f0896856a3',
+                'lucataco/remove-bg:95fcc2a26d3899cd6c2691c900465aaeff466285a65c14638cc5f36f34befaf1',
                 {
                     input: {
                         img: imageDataUri,

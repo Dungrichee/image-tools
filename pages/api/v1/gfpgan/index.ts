@@ -9,12 +9,8 @@ interface ExtendedNextApiRequest extends NextApiRequest {
     };
 }
 
-console.log('process.env.REPLICATE_API_TOKEN', process.env.REPLICATE_API_TOKEN);
-
 const replicate = new Replicate({
-    auth:
-        process.env.REPLICATE_API_TOKEN ||
-        'r8_VGADgDJGRR6uVtRl3OoESBobHjF6ZXh06qWFm',
+    auth: process.env.REPLICATE_API_TOKEN || '',
 });
 
 // export default async function handler(req: any, res: any) {

@@ -14,14 +14,14 @@ export default async function sendMail(req: any, res: any) {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'dungsky482@gmail.com',
-                pass: 'Dungriche1004@',
+                user: process.env.EMAIL_USER || '',
+                pass: process.env.EMAIL_PASSWORD || '',
             },
         });
 
         const mailOptions = {
-            from: 'dungsky482@gmail.com',
-            to: 'dungsky482@gmail.com',
+            from: process.env.EMAIL_USER || '',
+            to: process.env.EMAIL_USER || '',
             subject,
             html: element,
         };

@@ -5,11 +5,11 @@ import { Box } from '@mui/material';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 
+import { resetImages } from 'redux_store/image_storage/image_slice';
 import UploadPage from 'containers/upload_page';
 import UserLayout from 'containers/user_layout';
 import DeleteImageButton from 'components/delete_image_button';
 import ConvertOptions from 'containers/convert_options';
-import { resetImages } from 'redux_store/image_storage/image_slice';
 
 function ConvertToJPG() {
     const dispatch = useAppDispatch();

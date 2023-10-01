@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Box, Button, Typography } from '@mui/material';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import { makeStyles } from '@mui/styles';
 
 import { useAppDispatch, useAppSelector } from 'hook';
@@ -10,7 +11,6 @@ import UploadPage from 'containers/upload_page';
 // import ImageMasonry from 'components/image_masonry';
 import Scrollbars from 'react-custom-scrollbars-2';
 import DeleteImageButton from 'components/delete_image_button';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 function ImageRecovery() {
     const dispatch = useAppDispatch();

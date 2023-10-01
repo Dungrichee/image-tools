@@ -41,7 +41,8 @@ export default async function handler(req: ExtendedNextApiRequest, res: any) {
             console.error('Lỗi khi xử lý hình ảnh:', error);
             res.status(500).json({
                 success: false,
-                error: 'Lỗi khi xử lý hình ảnh',
+                message: 'Lỗi khi xử lý hình ảnh',
+                error
             });
         }
     } else {

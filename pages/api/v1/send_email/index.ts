@@ -28,8 +28,8 @@ export default async function sendMail(req: any, res: any) {
 
         await transporter.sendMail(mailOptions);
         res.json({ data: 'success' });
-    } catch (error) {
+    } catch (error: any) {
         console.log('error', error);
-        res.json({ error });
+        res.status(error.requestResult.statusCode).send(error.message);
     }
 }

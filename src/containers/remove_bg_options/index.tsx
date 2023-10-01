@@ -11,12 +11,13 @@ import Loading from 'components/loading';
 
 interface IRemoveBackgroundOptions {
     imageUrl: string;
+    imageName: string
 }
 
 function RemoveBackgroundOptions(props: IRemoveBackgroundOptions) {
     const dispatch = useAppDispatch();
 
-    const { imageUrl } = props;
+    const { imageUrl, imageName } = props;
     const { loading } = useDelayLoading();
     const classes = useStyles();
 
@@ -30,6 +31,12 @@ function RemoveBackgroundOptions(props: IRemoveBackgroundOptions) {
         if (!imageUrl) return;
 
         console.log(imageUrl);
+
+        const link = document.createElement('a');
+        link.download = imageName;
+        link.href = imageUrl;
+        link.click();
+
 
         // dispatch(downloadImage({ imageDataUri }))
     };

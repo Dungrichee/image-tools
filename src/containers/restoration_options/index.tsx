@@ -11,6 +11,7 @@ import Loading from 'components/loading';
 
 interface IRestorationOptions {
     imageUrl: string;
+    imageName: string
 }
 
 function RestorationOptions(props: IRestorationOptions) {
@@ -18,7 +19,7 @@ function RestorationOptions(props: IRestorationOptions) {
 
     const classes = useStyles();
     const { loading } = useDelayLoading();
-    const { imageUrl } = props;
+    const { imageUrl, imageName } = props;
 
     useEffect(() => {
         return () => {
@@ -30,6 +31,11 @@ function RestorationOptions(props: IRestorationOptions) {
         if (!imageUrl) return;
 
         console.log(imageUrl);
+
+        const link = document.createElement('a');
+        link.download = imageName;
+        link.href = imageUrl;
+        link.click();
 
         // dispatch(downloadImage({ imageDataUri }))
     };

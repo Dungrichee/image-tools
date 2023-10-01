@@ -57,7 +57,10 @@ function ImageRestoration() {
 
                         <SideBySide image={images[0]} newImg={restoredImage} />
                     </Box>
-                    <RestorationOptions imageUrl="" />
+                    <RestorationOptions
+                        imageUrl={restoredImage}
+                        imageName={images[0].src}
+                    />
                 </Box>
             )}
         </UserLayout>

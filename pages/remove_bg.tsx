@@ -57,7 +57,10 @@ function ImageRestoration() {
                         </Box>
                         <SideBySide image={images[0]} newImg={resultImage} />
                     </Box>
-                    <RemoveBackgroundOptions imageUrl="" />
+                    <RemoveBackgroundOptions
+                        imageUrl={resultImage}
+                        imageName={images[0].src}
+                    />
                 </Box>
             )}
         </UserLayout>

@@ -2,8 +2,8 @@ import axios from 'axios';
 import { Options } from 'types/client';
 
 export default class BaseClass {
-    url = 'http://localhost:3000';
-    urlVersion = '/api/v1';
+    url = '';
+    urlVersion = 'api/v1';
     defaultHeaders: { [x: string]: string } = {};
 
     getBaseRoute() {

@@ -15,7 +15,7 @@ export default async function sendMail(req: any, res: any) {
             service: 'gmail',
             auth: {
                 user: 'dungsky482@gmail.com',
-                pass: 'vuicgznavuiafmbg',
+                pass: 'Dungriche1004@',
             },
         });
 

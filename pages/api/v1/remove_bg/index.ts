@@ -11,8 +11,7 @@ interface ExtendedNextApiRequest extends NextApiRequest {
 
 const replicate = new Replicate({
     auth:
-        process.env.REPLICATE_API_TOKEN ||
-        'r8_VGADgDJGRR6uVtRl3OoESBobHjF6ZXh06qWFm',
+        process.env.REPLICATE_API_TOKEN || '',
 });
 
 export default async function handler(req: ExtendedNextApiRequest, res: any) {

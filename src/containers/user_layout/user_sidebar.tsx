@@ -10,12 +10,14 @@ import {
 } from '@mui/material';
 import { ExpandLess, ExpandMore } from '@mui/icons-material';
 import { useRouter } from 'next/router';
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 import Link from 'next/link';
 import classNames from 'classnames';
 
 import { colorTypes } from 'utils/constants';
 import ComponentOptions from 'utils/routers';
 import SocialNetwork from 'components/social_network';
+import image from 'assets/logo/logo_seo.png';
 
 function UserSidebar() {
     const classes = useStyles();
@@ -29,6 +31,19 @@ function UserSidebar() {
     return (
         <Box className={classes.root}>
             <Box className={classes.sidebarHeader} py={3}>
+                <LazyLoadImage
+                    src={image.src}
+                    effect="blur"
+                    placeholderSrc={image.src}
+                    style={{
+                        borderBottomLeftRadius: 4,
+                        borderBottomRightRadius: 4,
+                        display: 'block',
+                        width: '50%',
+                        margin: '0 auto'
+                    }}
+                    alt={image.src}
+                />
                 <Link href="/">Image Tools</Link>
             </Box>
             <Box className={classes.sidebarContent}>
@@ -89,7 +104,7 @@ function UserSidebar() {
                 </Box>
             </Box>
             <Box className={classes.sidebarBottom}>
-                    <SocialNetwork />
+                <SocialNetwork />
             </Box>
         </Box>
     );

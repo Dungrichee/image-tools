@@ -42,8 +42,11 @@ class MyDocument extends Document {
                         name="theme-color"
                         content={lightTheme.palette.primary.main}
                     />
-                    <meta name="description" content="coi phim hay" />
-                    <link rel="icon" href="/favicon.ico" />
+                    <meta
+                        name="description"
+                        content="Unlock the full potential of your images with our expert image editing services. We specialize in image restoration, background removal, resizing, and conversion, providing you with the perfect visual solutions."
+                    />
+                    {/* <link rel="icon" href="/favicon.ico" /> */}
                     <link
                         rel="preconnect"
                         href="https://fonts.googleapis.com"
@@ -53,7 +56,6 @@ class MyDocument extends Document {
                         href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,400&display=swap"
                         rel="stylesheet"
                     />
-                    {/* <title>Coi phim hay</title> */}
                 </Head>
                 <body>
                     <Main />

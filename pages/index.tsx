@@ -6,7 +6,7 @@ import HomePage from 'containers/home_page';
 
 const Home: NextPage = () => {
     return (
-        <Box flex={1} display="flex">
+        <Box flex={1} overflow="auto">
             {/* <Head>
                 <title>Image Tools</title>
                 <meta
@@ -15,9 +15,9 @@ const Home: NextPage = () => {
                 />
                 <link rel="icon" href="/favicon.ico" />
             </Head> */}
-            <Box flex={1} overflow="auto">
-                <HomePage />
-            </Box>
+            {/* <Box flex={1} overflow="auto"> */}
+            <HomePage />
+            {/* </Box> */}
         </Box>
     );
 };

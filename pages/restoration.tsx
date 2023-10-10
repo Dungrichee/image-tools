@@ -8,7 +8,6 @@ import { toastMessage } from 'redux_store/toast';
 import { toBase64 } from 'utils/images';
 
 import DeleteImageButton from 'components/delete_image_button';
-import UserLayout from 'containers/user_layout';
 import UploadPage from 'containers/upload_page';
 import RestorationOptions from 'containers/restoration_options';
 import SideBySide from 'components/side_by_side';
@@ -40,30 +39,29 @@ function ImageRestoration() {
             .catch((error) => toastMessage.error(error.message));
     };
 
-    return (
-        <UserLayout>
-            {!images.length ? (
-                <UploadPage
-                    title="Restoration image"
-                    description="Sharpen colors and enhance faces, turn damaged photos into cherished memories."
-                    callback={handleUpload}
-                />
-            ) : (
-                <Box className={classes.page}>
-                    <Box className={classes.content}>
-                        <Box textAlign="center" my={2}>
-                            <DeleteImageButton />
-                        </Box>
+    if (!images.length)
+        return (
+            <UploadPage
+                title="Restoration image"
+                description="Sharpen colors and enhance faces, turn damaged photos into cherished memories."
+                callback={handleUpload}
+            />
+        );
 
-                        <SideBySide image={images[0]} newImg={restoredImage} />
-                    </Box>
-                    <RestorationOptions
-                        imageUrl={restoredImage}
-                        imageName={images[0].src}
-                    />
+    return (
+        <Box className={classes.page}>
+            <Box className={classes.content}>
+                <Box textAlign="center" my={2}>
+                    <DeleteImageButton />
                 </Box>
-            )}
-        </UserLayout>
+
+                <SideBySide image={images[0]} newImg={restoredImage} />
+            </Box>
+            <RestorationOptions
+                imageUrl={restoredImage}
+                imageName={images[0].src}
+            />
+        </Box>
     );
 }
 

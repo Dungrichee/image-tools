@@ -7,7 +7,6 @@ import 'react-lazy-load-image-component/src/effects/blur.css';
 
 import { resetImages } from 'redux_store/image_storage/image_slice';
 import UploadPage from 'containers/upload_page';
-import UserLayout from 'containers/user_layout';
 import DeleteImageButton from 'components/delete_image_button';
 import ConvertOptions from 'containers/convert_options';
 
@@ -22,42 +21,39 @@ function ConvertToJPG() {
         };
     }, []);
 
-    return (
-        <UserLayout>
-            {!images.length ? (
-                <UploadPage
-                    title="Convert image to JPG"
-                    description="Convert PNG to JPG, SVG to JPG, camera raw files like NEF and CR2 to JPG. Convert image to JPG online"
-                />
-            ) : (
-                <Box className={classes.page}>
-                    <Box className={classes.content}>
-                        <Box textAlign="center" my={2}>
-                            <DeleteImageButton
-                                callback={() => console.log('')}
-                            />
-                        </Box>
+    if (!images.length)
+        return (
+            <UploadPage
+                title="Convert image to JPG"
+                description="Convert PNG to JPG, SVG to JPG, camera raw files like NEF and CR2 to JPG. Convert image to JPG online"
+            />
+        );
 
-                        <Box width="50%" position="relative" margin="0 auto">
-                            <LazyLoadImage
-                                src={images[0].src}
-                                alt={images[0].name}
-                                effect="blur"
-                                width="100%"
-                                height="100%"
-                                placeholderSrc={images[0].name}
-                                style={{
-                                    borderRadius: 4,
-                                    display: 'block',
-                                }}
-                                id="imgEl"
-                            />
-                        </Box>
-                    </Box>
-                    <ConvertOptions type="JPG" />
+    return (
+        <Box className={classes.page}>
+            <Box className={classes.content}>
+                <Box textAlign="center" my={2}>
+                    <DeleteImageButton callback={() => console.log('')} />
                 </Box>
-            )}
-        </UserLayout>
+
+                <Box width="50%" position="relative" margin="0 auto">
+                    <LazyLoadImage
+                        src={images[0].src}
+                        alt={images[0].name}
+                        effect="blur"
+                        width="100%"
+                        height="100%"
+                        placeholderSrc={images[0].name}
+                        style={{
+                            borderRadius: 4,
+                            display: 'block',
+                        }}
+                        id="imgEl"
+                    />
+                </Box>
+            </Box>
+            <ConvertOptions type="JPG" />
+        </Box>
     );
 }
 

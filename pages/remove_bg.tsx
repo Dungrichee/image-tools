@@ -9,7 +9,6 @@ import { toastMessage } from 'redux_store/toast';
 import { toBase64 } from 'utils/images';
 
 import DeleteImageButton from 'components/delete_image_button';
-import UserLayout from 'containers/user_layout';
 import UploadPage from 'containers/upload_page';
 import RemoveBackgroundOptions from 'containers/remove_bg_options';
 import SideBySide from 'components/side_by_side';
@@ -41,29 +40,28 @@ function ImageRestoration() {
             .catch((error) => toastMessage.error(error.message));
     };
 
+    if (!images.length)
+        return (
+            <UploadPage
+                title="Remove background"
+                description="Remove background from images for free using artificial intelligence."
+                callback={handleUpload}
+            />
+        );
+
     return (
-        <UserLayout>
-            {!images.length ? (
-                <UploadPage
-                    title="Remove background"
-                    description="Remove background from images for free using artificial intelligence."
-                    callback={handleUpload}
-                />
-            ) : (
-                <Box className={classes.page}>
-                    <Box className={classes.content}>
-                        <Box textAlign="center" my={2}>
-                            <DeleteImageButton />
-                        </Box>
-                        <SideBySide image={images[0]} newImg={resultImage} />
-                    </Box>
-                    <RemoveBackgroundOptions
-                        imageUrl={resultImage}
-                        imageName={images[0].src}
-                    />
+        <Box className={classes.page}>
+            <Box className={classes.content}>
+                <Box textAlign="center" my={2}>
+                    <DeleteImageButton />
                 </Box>
-            )}
-        </UserLayout>
+                <SideBySide image={images[0]} newImg={resultImage} />
+            </Box>
+            <RemoveBackgroundOptions
+                imageUrl={resultImage}
+                imageName={images[0].src}
+            />
+        </Box>
     );
 }
 

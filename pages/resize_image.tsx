@@ -4,7 +4,6 @@ import { makeStyles } from '@mui/styles';
 
 import { useAppDispatch, useAppSelector } from 'hook';
 import { resetImages } from 'redux_store/image_storage/image_slice';
-import UserLayout from 'containers/user_layout';
 import UploadPage from 'containers/upload_page';
 import ResizeOptions from 'containers/resize_options';
 import ImageMasonry from 'components/image_masonry';
@@ -20,24 +19,23 @@ function ResizeImage() {
         };
     }, [dispatch]);
 
+    if (!images.length)
+        return (
+            <UploadPage
+                title="Resize Image"
+                description="Resize  JPG, PNG, SVG or GIF by defining new height and width pixels.
+    Change image dimensions in bulk."
+                isMultiple
+            />
+        );
+
     return (
-        <UserLayout>
-            {!images.length ? (
-                <UploadPage
-                    title="Resize Image"
-                    description="Resize  JPG, PNG, SVG or GIF by defining new height and width pixels.
-                    Change image dimensions in bulk."
-                    isMultiple
-                />
-            ) : (
-                <Box className={classes.page}>
-                    <Box className={classes.content}>
-                        <ImageMasonry title="Resize images" />
-                    </Box>
-                    <ResizeOptions />
-                </Box>
-            )}
-        </UserLayout>
+        <Box className={classes.page}>
+            <Box className={classes.content}>
+                <ImageMasonry title="Resize images" />
+            </Box>
+            <ResizeOptions />
+        </Box>
     );
 }
 

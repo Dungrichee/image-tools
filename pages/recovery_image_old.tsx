@@ -198,82 +198,81 @@ function ImageRecovery() {
     //       const canvas = document.createElement('canvas');
     //       canvas.width = oldImage.width;
     //       canvas.height = oldImage.height;
-      
+
     //       const context = canvas.getContext('2d') as CanvasRenderingContext2D ;
     //       context.drawImage(oldImage, 0, 0);
-      
+
     //       const imageData = context.getImageData(0, 0, canvas.width, canvas.height);
-      
+
     //       const restoredData = interpolate(imageData);
     //       const restoredImageData = new ImageData(restoredData, imageData.width, imageData.height);
-      
+
     //       createImageBitmap(restoredImageData).then(function(bitmap) {
     //         context.drawImage(bitmap, 0, 0);
-      
+
     //         const restoredImage = document.getElementById('restored-image');
     //         // restoredImage.src = canvas.toDataURL();
     //       });
     //     });
     //   }
 
+    if (!images.length)
+        return (
+            <UploadPage
+                title="Recovery Image"
+                description="Phục hồi hình ảnh là quá trình khôi phục lại hình ảnh bị hư hỏng hoặc bị biến dạng bằng cách sử dụng các công cụ và kỹ thuật số để tạo ra một bản sao gần giống với hình ảnh ban đầu."
+                isMultiple
+            />
+        );
+
     return (
-        <UserLayout>
-            {!images.length ? (
-                <UploadPage
-                    title="Recovery Image"
-                    description="Phục hồi hình ảnh là quá trình khôi phục lại hình ảnh bị hư hỏng hoặc bị biến dạng bằng cách sử dụng các công cụ và kỹ thuật số để tạo ra một bản sao gần giống với hình ảnh ban đầu."
-                    isMultiple
-                />
-            ) : (
-                <Box className={classes.page}>
-                    <Box className={classes.content}>
-                        <Scrollbars>
-                            <Box className={classes.cropImage}>
-                                <Box textAlign="center" my={2}>
-                                    <DeleteImageButton />
-                                </Box>
+        <Box className={classes.page}>
+            <Box className={classes.content}>
+                <Scrollbars>
+                    <Box className={classes.cropImage}>
+                        <Box textAlign="center" my={2}>
+                            <DeleteImageButton />
+                        </Box>
 
-                                <Box height="60%">
-                                    <Box>
-                                        <Typography>Before</Typography>
-                                        <LazyLoadImage
-                                            src={images[0].src}
-                                            alt={images[0].name}
-                                            effect="blur"
-                                            width="100%"
-                                            height="100%"
-                                            placeholderSrc={images[0].name}
-                                            style={{
-                                                borderRadius: 4,
-                                                display: 'block',
-                                            }}
-                                        />
-                                    </Box>
-                                    <Button variant="contained">Click</Button>
-                                    <Box>
-                                        <Typography>After</Typography>
-                                        <LazyLoadImage
-                                            src={''}
-                                            alt={images[0].name}
-                                            effect="blur"
-                                            width="100%"
-                                            height="100%"
-                                            placeholderSrc={images[0].name}
-                                            style={{
-                                                borderRadius: 4,
-                                                display: 'block',
-                                            }}
-                                        />
-                                    </Box>
-                                </Box>
+                        <Box height="60%">
+                            <Box>
+                                <Typography>Before</Typography>
+                                <LazyLoadImage
+                                    src={images[0].src}
+                                    alt={images[0].name}
+                                    effect="blur"
+                                    width="100%"
+                                    height="100%"
+                                    placeholderSrc={images[0].name}
+                                    style={{
+                                        borderRadius: 4,
+                                        display: 'block',
+                                    }}
+                                />
                             </Box>
-                        </Scrollbars>
+                            <Button variant="contained">Click</Button>
+                            <Box>
+                                <Typography>After</Typography>
+                                <LazyLoadImage
+                                    src={''}
+                                    alt={images[0].name}
+                                    effect="blur"
+                                    width="100%"
+                                    height="100%"
+                                    placeholderSrc={images[0].name}
+                                    style={{
+                                        borderRadius: 4,
+                                        display: 'block',
+                                    }}
+                                />
+                            </Box>
+                        </Box>
                     </Box>
+                </Scrollbars>
+            </Box>
 
-                    {/* <CropOptions getCropData={getCropData} /> */}
-                </Box>
-            )}
-        </UserLayout>
+            {/* <CropOptions getCropData={getCropData} /> */}
+        </Box>
     );
 }
 

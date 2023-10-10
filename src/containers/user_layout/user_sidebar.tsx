@@ -18,6 +18,7 @@ import { colorTypes } from 'utils/constants';
 import ComponentOptions from 'utils/routers';
 import SocialNetwork from 'components/social_network';
 import image from 'assets/logo/logo_seo.png';
+// import Image from 'next/image';
 
 function UserSidebar() {
     const classes = useStyles();
@@ -31,6 +32,7 @@ function UserSidebar() {
     return (
         <Box className={classes.root}>
             <Box className={classes.sidebarHeader} py={3}>
+                {/* <Image src={image.src} alt='Image Tool Logo' /> */}
                 <LazyLoadImage
                     src={image.src}
                     effect="blur"

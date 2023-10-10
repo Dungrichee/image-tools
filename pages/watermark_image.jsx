@@ -11,7 +11,6 @@ import { resetSlice } from 'redux_store/watermark_image/watermark_image_slice';
 import { resetImages } from 'redux_store/image_storage/image_slice';
 
 import UploadPage from 'containers/upload_page';
-import UserLayout from 'containers/user_layout';
 import WatermarkOptions from 'containers/watermark_options';
 import DeleteImageButton from 'components/delete_image_button';
 
@@ -30,67 +29,66 @@ function WatermarkImage() {
         };
     }, [dispatch]);
 
-    return (
-        <UserLayout>
-            {!images.length ? (
-                <UploadPage
-                    title="Watermark Image"
-                    description="Add watermark to your pictures."
-                    type="watermark"
-                />
-            ) : (
-                <Box className={classes.page}>
-                    <Box className={classes.content}>
-                        <Scrollbars>
-                            <Box className={classes.watermark}>
-                                <Box textAlign="center" my={2}>
-                                    <DeleteImageButton
-                                        callback={() => dispatch(resetSlice())}
-                                    />
-                                </Box>
+    if (!images.length)
+        return (
+            <UploadPage
+                title="Watermark Image"
+                description="Add watermark to your pictures."
+                type="watermark"
+            />
+        );
 
-                                <Box
-                                    width="50%"
-                                    position="relative"
-                                    margin="0 auto"
-                                    id="wrapperImage"
-                                    display="flex"
-                                    flex="1"
-                                >
-                                    <Watermark
-                                        fontFamily={watermark.fontFamily}
-                                        gutter={11}
-                                        lineHeight="1.2rem"
-                                        multiline
-                                        opacity={watermark.opacity}
-                                        rotate={watermark.rotate}
-                                        show
-                                        text={watermark.text}
-                                        textColor={watermark.textColor}
-                                        textSize={watermark.textSize}
-                                        wrapperElement="div"
-                                    >
-                                        <LazyLoadImage
-                                            src={images[0].src}
-                                            alt={images[0].name}
-                                            effect="blur"
-                                            width="100%"
-                                            height="100%"
-                                            placeholderSrc={images[0].name}
-                                            style={{
-                                                borderRadius: 4,
-                                                display: 'block',
-                                            }}
-                                        />
-                                    </Watermark>
-                                </Box>
-                            </Box>
-                        </Scrollbars>
+    return (
+        <Box className={classes.page}>
+            <Box className={classes.content}>
+                <Scrollbars>
+                    <Box className={classes.watermark}>
+                        <Box textAlign="center" my={2}>
+                            <DeleteImageButton
+                                callback={() => dispatch(resetSlice())}
+                            />
+                        </Box>
+
+                        <Box
+                            width="50%"
+                            position="relative"
+                            margin="0 auto"
+                            id="wrapperImage"
+                            display="flex"
+                            flex="1"
+                        >
+                            <Watermark
+                                fontFamily={watermark.fontFamily}
+                                gutter={11}
+                                lineHeight="1.2rem"
+                                multiline
+                                opacity={watermark.opacity}
+                                rotate={watermark.rotate}
+                                show
+                                text={watermark.text}
+                                textColor={watermark.textColor}
+                                textSize={watermark.textSize}
+                                wrapperElement="div"
+                            >
+                                <LazyLoadImage
+                                    src={images[0].src}
+                                    alt={images[0].name}
+                                    effect="blur"
+                                    width="100%"
+                                    height="100%"
+                                    placeholderSrc={images[0].name}
+                                    style={{
+                                        borderRadius: 4,
+                                        display: 'block',
+                                    }}
+                                />
+                            </Watermark>
+                        </Box>
                     </Box>
-                    <WatermarkOptions />
-                </Box>
-            )}
-        </UserLayout>
+                </Scrollbars>
+            </Box>
+            <WatermarkOptions />
+        </Box>
     );
 }
 

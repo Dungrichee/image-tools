@@ -65,7 +65,7 @@ function HeaderPage() {
             <meta name="thumbnail" content={logoIco.src} />
 
             {/* Link */}
-            <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+            <link rel="icon" href={logoIco.src} />
 
             <link
                 rel="icon"

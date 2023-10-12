@@ -8,6 +8,14 @@ const title = 'Image Tools - High-Quality Image Editing';
 function HeaderPage() {
     return (
         <Head>
+            <script async src="https://www.googletagmanager.com/gtag/js?id=G-XLEHS2JL1W"></script>
+            <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments)}
+            gtag('js', new Date());
+
+            gtag('config', 'G-XLEHS2JL1W');
+            </script>
             <title>{title}</title>
 
             <meta property="og:title" content={title} />
